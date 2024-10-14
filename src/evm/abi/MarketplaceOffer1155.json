@@ -1,0 +1,679 @@
+{
+    "abi":[
+        {
+            "inputs": [
+                {
+                    "name": "minter",
+                    "internalType": "address payable",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "bidder",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "payAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "payAmount",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "auctioneer",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "AcceptOffer",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "bidder",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "CancelOffer",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "bidder",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "payAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "payAmount",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "expiry",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "CreateOffer",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "previousOwner",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "newOwner",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "name": "previousAdminRole",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "name": "newAdminRole",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "sender",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "sender",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "anonymous": false,
+            "type": "event"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                }
+            ],
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                }
+            ],
+            "inputs": [],
+            "name": "OFFER_ROLE",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "acceptOffer",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelOffer",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "signature",
+                    "internalType": "bytes",
+                    "type": "bytes"
+                }
+            ],
+            "name": "cancelOfferByRole",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "payAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "name": "payAmount",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "expiry",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createOffer",
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "inputs": [],
+            "name": "fee",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "inputs": [],
+            "name": "getChainID",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "nftAddress",
+                            "internalType": "address",
+                            "type": "address"
+                        },
+                        {
+                            "name": "tokenId",
+                            "internalType": "uint256",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "bidder",
+                            "internalType": "address",
+                            "type": "address"
+                        },
+                        {
+                            "name": "payAddress",
+                            "internalType": "address",
+                            "type": "address"
+                        },
+                        {
+                            "name": "payAmount",
+                            "internalType": "uint256",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "expiry",
+                            "internalType": "uint256",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "exists",
+                            "internalType": "bool",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "offer",
+                    "internalType": "struct MarketplaceOffer1155.Offer",
+                    "type": "tuple"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "offerNumber",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getOffer",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "bool",
+                    "type": "bool"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "offerBalance",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "inputs": [],
+            "name": "owner",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "inputs": [],
+            "name": "platformAddress",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [],
+            "name": "renounceOwnership",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "role",
+                    "internalType": "bytes32",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "_fee",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setFee",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "_platformAddress",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "setPlatformAddress",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "bool",
+                    "type": "bool"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "interfaceId",
+                    "internalType": "bytes4",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [
+                {
+                    "name": "",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "nftAddress",
+                    "internalType": "address",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenId",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                },
+                {
+                    "name": "index",
+                    "internalType": "uint256",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenOfferByIndex",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "outputs": [],
+            "inputs": [
+                {
+                    "name": "newOwner",
+                    "internalType": "address",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

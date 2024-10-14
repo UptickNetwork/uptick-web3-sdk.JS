@@ -1,0 +1,12 @@
+{
+    "root": "./docs",
+    "description": "uptick sdk",
+    "author": "Uptick Dev Team",
+    "title": "Uptick SDK",
+    "gitbook" : ">=3.0.0",
+    "links" : {
+        "sidebar" : {
+            "Home" : "https://www.uptick.network"
+        }
+    }    
+}
