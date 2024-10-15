@@ -1,6 +1,5 @@
 // import Vue from "vue";
 import Web3 from 'web3'
-const md5 = require('md5');
 const web3Obj = new Web3();
 let base = require('./handler/base.js');
 let uptick721 = require('./handler/uptick721.js');
@@ -39,7 +38,7 @@ export async function init(chainId) {
      }
 }
 
-export setProvider(rpc,chainID){
+export function setProvider(rpc,chainID){
 	base.setProvider(rpc);
 	init(chainID)
 }
@@ -95,7 +94,7 @@ const  checkmetamaskconnect = async ()=>{
 			console.log('denied');
 		}
 	} else {
-		this.$Message.error('请连接metamask钱包！');
+		console.log("连接metamask钱包")
 	}
 
 };

@@ -8,7 +8,7 @@ import {
 
 import {
     abi
-} from "../artifact/LazyNFT.json";
+} from "../abi/LazyNFT.json";
 import { utils } from "ethers";
 
 const base = require('./base');

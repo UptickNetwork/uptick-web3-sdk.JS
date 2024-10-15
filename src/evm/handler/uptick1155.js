@@ -9,7 +9,7 @@ import {
 
 import {
     abi
-} from "../artifact/Uptick1155.json";
+} from "../abi/Uptick1155.json";
 import { utils } from "ethers";
 
 const base = require('./base');

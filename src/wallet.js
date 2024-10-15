@@ -16,7 +16,8 @@ export const getMatamaskWeb3 = async () => {
 			console.log('denied');
 		}
 	} else {
-		this.$Message.error('Link the metamask！');
+		console.log("Link the metamask！")
+		
 	}
 	let accounts = await web3.eth.getAccounts();
 	return accounts;

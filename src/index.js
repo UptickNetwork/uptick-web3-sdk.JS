@@ -3,7 +3,6 @@
 import {
 	setProvider,
     getMyBalance,
-    transfer,
     transferFrom ,
     onSale,
     onSaleBatch,
@@ -29,7 +28,7 @@ import {
     getFeeByChainID,
     setBridgeApproval
 
-} from '@/ethereum/evm/index';
+} from './evm/index';
 
 
 let chainName = "UPTICK EVM";
@@ -69,7 +68,7 @@ export function wallet() {
     return wt;
 };
 
-export function init(rpc,chainId) {
+export function initMetaMask(rpc,chainId) {
  
 	setProvider(rpc,chainId)
     

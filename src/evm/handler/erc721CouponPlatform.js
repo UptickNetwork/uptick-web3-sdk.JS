@@ -7,7 +7,7 @@ import {
 
 import {
     abi
-} from "../artifact/ERC721CouponPlatform.json";
+} from "../abi/ERC721CouponPlatform.json";
 
 const base = require('./base');
 

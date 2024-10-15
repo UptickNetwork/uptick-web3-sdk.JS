@@ -6,7 +6,7 @@ import {
 import { ethers } from "ethers";
 import {
     abi
-} from "../artifact/Bridge.json";
+} from "../abi/Bridge.json";
 
 const base = require('./base');
 

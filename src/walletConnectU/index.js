@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { convertUtf8ToHex } from "@walletconnect/utils";
 import { apiGetAccountAssets, apiGetGasPrices, apiGetAccountNonce } from "./helpers/api";
 import {
@@ -22,9 +21,8 @@ const web3Obj = new Web3();
 
 
 
-const BigNumber = require('big-number');   
-const { toUnitValue ,getMaxFeeBips} = require("../utils/helper");
-let chainId = process.env.VUE_APP_ADD_NETWORK_CHAIN_ID
+  
+let chainId = '0x75'
 let chainIdInt = parseInt(chainId, 16)
 console.log( '-------',chainIdInt);
 
@@ -55,7 +53,7 @@ let appState = {
 })();
 
 
-export const events = new Vue();
+// export const events = new Vue();
 const projectId='fcdd88566430f26f30305932271b8e66';
 
 function gethost() {
@@ -100,7 +98,7 @@ function gethost() {
 		  const WalletProvider = new ethers.providers.Web3Provider(provider)
 		  provider.on("display_uri", (uri) => {
 		    console.log("display_uri", uri);
-		    events.$emit('wallet_is_connect',uri)
+		    // events.$emit('wallet_is_connect',uri)
 		  });
 		  // chain changed
 		  provider.on('chainChanged', (result) => {
@@ -110,8 +108,7 @@ function gethost() {
 		  provider.on('accountsChanged', (accounts) => {
 		    console.log("accountsChanged=============", accounts);
 		 	 appState.accounts = accounts[0];
-		 	events.$emit('connect',accounts[0])
-            // events.$emit('accountsChanged',accounts[0])
+		 	// events.$emit('connect',accounts[0])
                 
 		  });
 		  // session established
@@ -172,7 +169,7 @@ async function onConnect(payload) {
     appState.address = address;
     await getAccountAssets();
 
-    events.$emit("connect", appState);
+    // events.$emit("connect", appState);
 };
 
 function onDisconnect() {
@@ -200,7 +197,7 @@ async function onSessionUpdate(accounts, chainId) {
 
     await getAccountAssets();
 
-    events.$emit("session_update", appState);
+    // events.$emit("session_update", appState);
 };
 
 async function getAccountAssets() {

@@ -6,7 +6,7 @@ import {
 
 import {
     abi
-} from "../artifact/ERC1155Auction.json";
+} from "../abi/ERC1155Auction.json";
 import { utils } from "ethers";
 const base = require('./base');
 

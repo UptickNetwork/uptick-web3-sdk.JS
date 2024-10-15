@@ -7,7 +7,7 @@ export async function connect(address, abi, signer) {
 	
 	let isWalletConnect=isWalletConnect();
 	if(isWalletConnect){
-		let provider=await initProvider();
+	let provider=await initProvider();
 	let accountsPro=await provider.enable();
 	console.log("accountsPro===",accountsPro);
 	let web3 = new Web3(provider);
@@ -51,7 +51,6 @@ export async function wallectConnectSendTransaction(fromAddress,contractAddress,
 		   params
 		 }).catch((error) => {
 		    console.error("provider.request error:",error)
-		    // If the request fails, the Promise will reject with an error.
 			result.error=error;
 		  })
 		  result.hash=hash;

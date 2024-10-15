@@ -7,7 +7,7 @@ import {
 
 import {
     abi
-} from "../artifact/IERC20.json";
+} from "../abi/IERC20.json";
 
 const base = require('./base');
 
