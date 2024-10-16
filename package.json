@@ -1,22 +1,16 @@
 {
   "name": "@xyyz1207/uptick-web3-sdk",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "author": "Uptick Dev Team",
   "description": "Uptick SDK",
   "private": false,
   "license": "GPL-3.0",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "module": "dist/uptick-web-sdk.esm.js",
   "files": [
-    "dist"
+    "src"
   ],
   "dependencies": {
     "@ethereumjs/common": "^2.4.0",
     "@ethereumjs/tx": "^3.3.0",
-    "@walletconnect/ethereum-provider": "^2.12.2",
-    "@walletconnect/modal": "^2.6.2",
-    "@walletconnect/web3-provider": "^1.7.8",
     "async": "^3.2.0",
     "axios": "^0.21.1",
     "bech32": "^2.0.0",
@@ -28,39 +22,15 @@
     "eth-sig-util": "2.3.0",
     "ethereumjs-abi": "0.6.8",
     "ethereumjs-util": "5.2.0",
-    "ethers": "^6.13.4",
+	"ethers": "^5.6.0",
     "ffjavascript": "0.1.3",
     "js-sha3": "^0.8.0",
     "snarkjs": "0.1.20",
     "web3": "1.10.0"
   },
-  "build": {
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "publish": {
-      "provider": "custom",
-      "repo": "https://github.com/UptickNetwork/uptick-web3-sdk",
-      "owner": "Uptick Dev Team"
-    }
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "scripts": {
-    "build": "tsdx build",
-    "start": "yarn link; tsdx watch",
-    "test": "tsdx test",
-    "test_calc": "tsdx test",
-    "prepublishOnly": "NODE_ENV=production tsdx build",
-    "doc": "typedoc --out docs/detail src\\/",
-    "build-book": "npx honkit build",
-    "cp-file-doc": "cp README.md ./docs/README.md;  cp Changelog.md ./docs/Changelog.md; ",
-    "build-b": "npm run doc; npm run build-book",
-    "serve-book": "npx honkit serve",
-    "deploy-book": "gh-pages -d _book"
   },
   "browserslist": {
     "production": [
@@ -113,3 +83,6 @@
     "typescript": "^4.1.2"
   }
 }
+
+
+

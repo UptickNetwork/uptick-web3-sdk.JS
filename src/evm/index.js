@@ -43,7 +43,7 @@ export function setProvider(rpc,chainID){
 	init(chainID)
 }
 async function handleAccountsChanged(accounts) {
-  
+   console.log("zxx---handleAccountsChanged",accounts)
     if(!window.isWalletConnect)
     {
         if (accounts.length == 0) return;
@@ -57,7 +57,7 @@ async function handleAccountsChanged(accounts) {
 		// 	address:address,
 		// 	uptickAddress:did
 		// }
-        localStorage.setItem("key_user", JSON.stringify({ user: true, did: $store.state.did, bscAddress: address }));
+        localStorage.setItem("key_user", JSON.stringify({ user: true, did: address, bscAddress: address }));
         
         location.reload();
     }
@@ -70,6 +70,7 @@ export async function getMyBalance() {
 
     balance["format"] = parseFloat(amt).toFixed(6);
     let mount = balance.format;
+	 localStorage.setItem("key_balance", mount);
     return balance;
 }
 

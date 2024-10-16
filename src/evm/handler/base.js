@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
- import { initProvider} from "../../walletConnectU";
+
 let { bech32 } = require('bech32');
 import Web3 from 'web3';
 let rpcURL='https://json-rpc.uptick.network'
@@ -9,25 +9,27 @@ export const getWeb3Instance = () => {
   return web3Obj;
 };
 
-export const setProvider = (provider: string) => {
+export const setProvider = (provider) => {
   web3Obj.setProvider(provider);
 };
 
 const fromHexString = hexString =>
   new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
 
-export async function getBalance(address) {
+export async function getBalance() {
     // const account = await getAccounts();
-    // 根据缓冲获取地址
-    let amt = web3Obj.eth.getBalance(address);
+    // 根据缓存获取地址
+	const json = localStorage.getItem("key_user");
+	let address = JSON.parse(json);
+	let amt = web3Obj.eth.getBalance(address.did);
     return amt;
 }
 
 export async function getAccounts(){
     let web3Provider,provider
 
-    if(window.isWalletConnect){
-	 provider=await initProvider();
+    if(isWalletConnect()){
+	 provider=window.walletProvider;
 	 console.log("provider====",provider);
       await provider.enable();
      web3Provider = new ethers.providers.Web3Provider(provider);
@@ -43,8 +45,8 @@ export async function getAccounts(){
 export async function getSigner(){
   let provider,web3Provider
 
-if(window.isWalletConnect){
-  provider=await initProvider();
+if(isWalletConnect()){
+  provider=window.walletProvider;
 }else{
   provider=window.ethereum
 }
@@ -170,4 +172,15 @@ export async function getGasPriceAndGasLimit(){
  
     return {gasPrice,gasLimit};
 
+}
+export  function isWalletConnect(){
+	let isWalletConnect=false;
+	const data = localStorage.getItem("walletconnect");
+	if(!data)
+	{
+	    isWalletConnect = false
+	} else{
+	    isWalletConnect = JSON.parse(data).connected
+	}
+	return isWalletConnect;
 }

@@ -37,7 +37,6 @@ let chainName = "UPTICK EVM";
 export function wallet() {
     let wt = {
             getMyBalance: getMyBalance,
-            transfer: transfer,
             transferFrom: transferFrom,
             onSale: onSale,
             onSaleBatch:onSaleBatch,
@@ -62,13 +61,12 @@ export function wallet() {
             uptickToPolygon : uptickToPolygon,
             getFeeByChainID:getFeeByChainID,
             setBridgeApproval: setBridgeApproval,
-			setWalletConnect:setWalletConnect,
         };
     
     return wt;
 };
 
-export function initMetaMask(rpc,chainId) {
+export function init(rpc,chainId) {
  
 	setProvider(rpc,chainId)
     
