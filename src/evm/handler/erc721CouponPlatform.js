@@ -111,7 +111,6 @@ export async function revokeApprovesWithArray(tokenArr) {
 
 export async function placeOrder( nftAddress,nftId, toAddress, price,couponCode,couponLink) {
 
-	debugger
 	if(couponCode == null){
 		couponCode = 0
 	}

@@ -64,7 +64,6 @@ export async function placeOrder( nftAddress,nftId, toAddress, price) {
 	
 	let hasWalletConnect = isWalletConnect();
 	if(!hasWalletConnect){
-		debugger
 		let gasSetting = await base.getGasPriceAndGasLimit();
 	
 		let result = await contract.placeOrder(
@@ -91,7 +90,6 @@ export async function onSaleBatch( nftAddresss,nftids, values,fee,chainAddresss)
 
 	
 	console.log('onSaleBatch',nftAddresss,nftids, values,fee,chainAddresss);
-	debugger
 	
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
@@ -124,8 +122,7 @@ export async function onSaleBatch( nftAddresss,nftids, values,fee,chainAddresss)
 }
 
 export async function onSale( nftAddress,nftid, value,fee,chainAddress) {
-	debugger
-	console.log("onSale =============== 00000000000");
+	
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 
@@ -156,7 +153,7 @@ export async function onSale( nftAddress,nftid, value,fee,chainAddress) {
 }
 
 export async function offSaleBatch( nftAddress,nftids) {
-    debugger
+  
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 
@@ -188,7 +185,7 @@ export async function offSaleBatch( nftAddress,nftids) {
 }
 
 export async function offSale( nftAddress,nftid) {
-    debugger
+   
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 

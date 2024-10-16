@@ -6,7 +6,7 @@ import {
 } from "./common";
 
 import {
-    abi
+    abi,bytecode
 } from "../abi/Uptick721.json";
 
 const base = require('./base');
@@ -24,6 +24,47 @@ export function setContractAddress(address, platformAddress) {
     }
 }
 
+export async function deploy(name, metadataUrl) {
+    const account = await base.getAccounts();
+    const fromAddress = await account.getAddress();
+let gasSetting = await base.getGasPriceAndGasLimit();
+		
+		let contract
+		if (!contract) {
+		    contract = await connect('', abi, account);
+		}
+				
+ 
+ let proof = await contract
+			    .deploy({
+			      data: bytecode,
+			      arguments: [name, metadataUrl],
+			    })
+			    .send(
+			      {
+			        from: account,
+			        gasPrice: gasSetting.gasPrice ,
+			        gasLimit: gasSetting.gasLimit,
+			      },
+			      function (e, contract) {}
+			    )
+			    .on("receipt", function (receipt) {
+					return receipt;
+			    
+			    })
+          .on('error', (error) => {
+            console.error(error);
+            // 合约部署失败时的处理逻辑
+          })
+		  
+
+  
+
+
+	
+	
+
+}
 
 
 export async function transferFrom(toAddress, tokenId) {
@@ -72,7 +113,6 @@ export async function mintNft( toAddress,tokenId,baseurl,mintByCreatorFee) {
         contract = await connect(contractAddress, abi, account);
     }
 
-    
 
 let hasWalletConnect = isWalletConnect();
 	if(!hasWalletConnect){
@@ -85,7 +125,7 @@ let hasWalletConnect = isWalletConnect();
 		return result;
 	}else{
 		  let data= contract.methods.mintByCreatorFee(toAddress, tokenId, baseurl,mintByCreatorFee).encodeABI()
-		  debugger
+		 
 		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,"0");
 		return result;
 		 

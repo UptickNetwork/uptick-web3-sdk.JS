@@ -26,7 +26,8 @@ import {
     lazyNftMint,
     uptickToPolygon,
     getFeeByChainID,
-    setBridgeApproval
+    setBridgeApproval,
+	deploy
 
 } from './evm/index';
 
@@ -61,6 +62,7 @@ export function wallet() {
             uptickToPolygon : uptickToPolygon,
             getFeeByChainID:getFeeByChainID,
             setBridgeApproval: setBridgeApproval,
+			deploy:deploy
         };
     
     return wt;

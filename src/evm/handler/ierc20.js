@@ -16,12 +16,10 @@ let contractAddress,contractAddressPlatform;
 
 
 export function setContractAddress(token20Address,platformAddress) {
-debugger
+
     if(token20Address) {
         contractAddress = token20Address;
     }
-	debugger
-	console.log("erc20platformADDress==="+platformAddress)
     if(platformAddress) {
         contractAddressPlatform = platformAddress;
     }
@@ -80,8 +78,6 @@ export async function getTokenBalance(owner) {
 }
 
 export async function isApprovedForAll() {
-    debugger
-
     const account = await base.getSigner();
     // const fromAddress = await account.getAddress();
     const json = localStorage.getItem("key_user");

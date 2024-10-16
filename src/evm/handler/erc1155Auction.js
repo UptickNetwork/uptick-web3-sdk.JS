@@ -95,7 +95,7 @@ export async function onSale(nftAddress,nftid, startTimeStamp,endTimeStamp,start
 
 
 export async function placeBid(nftAddress,nftid,fixPrice,owner,fee) {
-    debugger
+    
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 
@@ -130,7 +130,7 @@ export async function placeBid(nftAddress,nftid,fixPrice,owner,fee) {
 
 
 export async function end(nftAddress,nftid,owner) {
-    debugger
+   
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 

@@ -180,7 +180,7 @@ export async function onSaleBatch(nftType, nftAddresss,nftids, values,fee,amount
 }
 
 export async function onSale(nftType, nftAddress,nftid, value,fee,amount, chainAddress) {
-debugger
+
         if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265'|| chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831' ){
 			// uptick测试环境生产环境的IRIS ATOM 保留6位
              value =  value * 1000000
@@ -439,6 +439,21 @@ export async function getTokenBalance(owner) {
    
     
 }
+export async function deploy(nftType,name, metadataUrl,lazySignAddress) {
+    // let mint = await uptick721.mint(tokenId, memo);
+    // console.log(mint);
+    if (nftType == "ERC721") {
+        let result = await uptick721.deploy(name, metadataUrl);
+        return result;
+    }
+    else if (nftType == "ERC1155") {
+        let result = await uptick1155.deploy(name, metadataUrl);
+        return result;
+    }
+	
+}
+
+
 
 export async function revokeApprovesWithArray(nftType, tokenArr, value, onAssetIds) {
     if(nftType == "ERC721") {
@@ -515,7 +530,7 @@ export function setContractAddress(nftType, addressObject) {
     console.log('setContractAddress');
     console.log(addressObject);
   
-    debugger
+   
     if (nftType == "ERC721" || nftType == null ) {
         uptick721.setContractAddress(addressObject.address, addressObject.platformAddress);
         erc721Platform.setContractAddress(addressObject.platformAddress);
@@ -668,7 +683,7 @@ console.log("acceptOffer",nftType,offerNumber,nftAddress,tokenId);
 //  跨链 uptick -> Polygon
 
 export async function setBridgeApproval(nftType) {
-    debugger
+
 console.log('setBridgeApproval',nftType);
 if(nftType == 'ERC721'){
     let isApproved = await uptick721.isApprovedForAll();

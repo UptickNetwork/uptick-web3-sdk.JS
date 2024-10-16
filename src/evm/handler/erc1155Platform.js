@@ -56,7 +56,6 @@ export async function transfer(owner, tokenId, value, assetId) {
 }
 
 export async function onSale(nftAddress,nftid, value,fee,amount,chainAddress) {
-	debugger
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
   
@@ -171,7 +170,7 @@ export async function offSale( nftAddress,nftid) {
 }
 ////offSaleBatch
 export async function offSaleBatch( nftAddress,nftids) {
-    debugger
+
     let fromaddressarr = [];
 
     const account = await base.getAccounts();

@@ -99,7 +99,7 @@ export async function isApprovedForAll(operator) {
     let address = JSON.parse(json);
     const fromAddress = address.did
 	console.log('erc1155 isApprovedForAll -- ',contractAddress,operator,fromAddress);
-	debugger
+	
 
     let contract
     if (!contract) {

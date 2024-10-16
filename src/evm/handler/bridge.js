@@ -27,7 +27,7 @@ export async function getFeeByChainID(tokenIds,chainID) {
 
 try {
 	console.log("chainID",tokenIds,chainID);
-	debugger
+	
     const account = await base.getSigner();
     let contract
     if (!contract) {
