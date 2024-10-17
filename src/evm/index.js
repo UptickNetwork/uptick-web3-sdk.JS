@@ -449,7 +449,7 @@ export async function deploy(nftType,name, metadataUrl,lazySignAddress) {
         return result;
     }
     else if (nftType == "ERC1155") {
-        let result = await uptick1155.deploy(name, metadataUrl,proofContractObj);
+        let result = await uptick1155.deploy(name, metadataUrl);
         return result;
     }else if(nftType == 'lazyCollection'){
         let result = await lazyNFT.deploy(name, metadataUrl,lazySignAddress);
