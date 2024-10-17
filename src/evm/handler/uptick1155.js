@@ -1,6 +1,6 @@
 import {
     connect,
-	
+	initProofContract,
 	connectCheck,
 	wallectConnectSendTransaction,
 	isWalletConnect
@@ -8,7 +8,7 @@ import {
 
 
 import {
-    abi
+    abi,bytecode
 } from "../abi/Uptick1155.json";
 import { utils } from "ethers";
 
@@ -28,6 +28,50 @@ export function setContractAddress(address, platformAddress) {
         contractAddressPlatform = platformAddress;
     }
 }
+
+export async function deploy(name, metadataUrl) {
+ 
+    const ProofContractObj = await initProofContract(abi)
+	const account = await base.getSigner();
+
+	let gasSetting = await base.getGasPriceAndGasLimit();
+	console.log('wxl ----  deploy --- 28 ProofContract',ProofContractObj.proofContract,ProofContractObj.account);
+ 
+ let proof = await ProofContractObj.proofContract
+			    .deploy({
+			      data: bytecode,
+			      arguments: [name, '',metadataUrl],
+			    })
+			    .send(
+			      {
+			        from: ProofContractObj.account,
+			        gasPrice: gasSetting.gasPrice ,
+			        gasLimit: gasSetting.gasLimit,
+			      },
+			      function (e, contract) {}
+			    )
+			    .on("receipt", function (receipt) {
+					console.log('wxl ----- receipt ---- 49',receipt);
+
+					
+				
+	
+			    
+			    })
+          .on('error', (error) => {
+            console.error(error);
+            // 合约部署失败时的处理逻辑
+          })
+		  
+				return proof._address
+  
+
+
+	
+	
+
+}
+
 
 
 // 转送

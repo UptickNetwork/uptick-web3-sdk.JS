@@ -8,7 +8,7 @@ import {
 
 import {
     abi,bytecode
-} from "../abi/LazyNFT.json";
+} from "../abi/LazyNFT1948.json";
 import { utils } from "ethers";
 
 const base = require('./base');

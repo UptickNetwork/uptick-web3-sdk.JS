@@ -5,6 +5,7 @@ let base = require('./handler/base.js');
 let uptick721 = require('./handler/uptick721.js');
 let uptick1155 = require('./handler/uptick1155.js');
 let lazyNFT = require('./handler/lazyNFT.js');
+let lazyNFT1948 = require('./handler/lazyNFT1948.js');
 const erc721Platform = require("./handler/erc721Platform.js");
 const erc1155Platform = require("./handler/erc1155Platform.js");
 const erc721CouponPlatform = require("./handler/erc721CouponPlatform.js");
@@ -440,15 +441,24 @@ export async function getTokenBalance(owner) {
     
 }
 export async function deploy(nftType,name, metadataUrl,lazySignAddress) {
-    // let mint = await uptick721.mint(tokenId, memo);
-    // console.log(mint);
+    
     if (nftType == "ERC721") {
         let result = await uptick721.deploy(name, metadataUrl);
+        console.log('wxl 000000 ------ result 447',result);
+        
         return result;
     }
     else if (nftType == "ERC1155") {
-        let result = await uptick1155.deploy(name, metadataUrl);
+        let result = await uptick1155.deploy(name, metadataUrl,proofContractObj);
         return result;
+    }else if(nftType == 'lazyCollection'){
+        let result = await lazyNFT.deploy(name, metadataUrl,lazySignAddress);
+        return result;
+
+    }else if(nftType == 'ERC1948'){
+        let result = await lazyNFT1948.deploy(name, metadataUrl,lazySignAddress);
+        return result;
+
     }
 	
 }

@@ -1,6 +1,7 @@
 import {
    connect,
    connectCheck,
+   initProofContract,
    wallectConnectSendTransaction,
    isWalletConnect
 } from "./common";
@@ -8,6 +9,7 @@ import {
 import {
     abi,bytecode
 } from "../abi/Uptick721.json";
+import { resolve } from "path";
 
 const base = require('./base');
 
@@ -24,32 +26,33 @@ export function setContractAddress(address, platformAddress) {
     }
 }
 
-export async function deploy(name, metadataUrl) {
-    const account = await base.getAccounts();
-    const fromAddress = await account.getAddress();
-let gasSetting = await base.getGasPriceAndGasLimit();
-		
-		let contract
-		if (!contract) {
-		    contract = await connect('', abi, account);
-		}
-				
+export async function deploy(name, metadataUrl,) {
+ const ProofContractObj = await initProofContract(abi)
+   
+	const account = await base.getSigner();
+
+	let gasSetting = await base.getGasPriceAndGasLimit();
+	console.log('wxl ----  deploy --- 28 ProofContract',ProofContractObj.proofContract,ProofContractObj.account);
  
- let proof = await contract
+ let proof = await ProofContractObj.proofContract
 			    .deploy({
 			      data: bytecode,
-			      arguments: [name, metadataUrl],
+			      arguments: [name, ''],
 			    })
 			    .send(
 			      {
-			        from: account,
+			        from: ProofContractObj.account,
 			        gasPrice: gasSetting.gasPrice ,
 			        gasLimit: gasSetting.gasLimit,
 			      },
 			      function (e, contract) {}
 			    )
 			    .on("receipt", function (receipt) {
-					return receipt;
+					console.log('wxl ----- receipt ---- 49',receipt);
+
+					
+				
+	
 			    
 			    })
           .on('error', (error) => {
@@ -57,7 +60,7 @@ let gasSetting = await base.getGasPriceAndGasLimit();
             // 合约部署失败时的处理逻辑
           })
 		  
-
+return proof._address
   
 
 

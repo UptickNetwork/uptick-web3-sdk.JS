@@ -21,6 +21,33 @@ export async function connect(address, abi, signer) {
 
 
 }
+
+export async function initProofContract(abi) {
+	let web3
+
+	let hasWalletConnect = isWalletConnect();
+	if (hasWalletConnect) {
+		let provider=window.walletProvider;
+		let accountsPro=await provider.enable();
+	  //  Create Web3
+	  web3 = new Web3(provider);
+	} else {
+	  web3 = new Web3(window.ethereum);
+	}
+
+  let proofContract = new web3.eth.Contract(abi);
+ let  accounts = await web3.eth.getAccounts();
+ let proofContractObj = {
+	proofContract:proofContract,
+	account:accounts[0]
+
+ }
+
+  
+return  proofContractObj
+	
+	
+}
 export async function connectCheck(address, abi, signer) {
 	console.log("wxl --- connectCheck",address);
 let contract = new ethers.Contract(address, abi, signer);
