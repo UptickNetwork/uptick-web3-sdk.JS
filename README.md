@@ -23,10 +23,13 @@ Vue.prototype.$chainName = "UPTICK EVM";
 ```
 
 ##方法介绍
-
+获取余额
 ```
 
 ```
+Params     | 是否必须     | exapmle
+-------- | ----- | -----
+address  | true | 0xabc...
 
 ##参考demo
 
