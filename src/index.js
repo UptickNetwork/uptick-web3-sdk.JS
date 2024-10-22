@@ -24,7 +24,7 @@ import {
     cancelOffer,
     acceptOffer,
     lazyNftMint,
-    uptickToPolygon,
+    uptickCrossToEVM,
     getFeeByChainID,
     setBridgeApproval,
 	deploy
@@ -59,7 +59,7 @@ export function wallet() {
             cancelOffer : cancelOffer,
             acceptOffer : acceptOffer,
             lazyNftMint : lazyNftMint,
-            uptickToPolygon : uptickToPolygon,
+            uptickCrossToEVM : uptickCrossToEVM,
             getFeeByChainID:getFeeByChainID,
             setBridgeApproval: setBridgeApproval,
 			deploy:deploy

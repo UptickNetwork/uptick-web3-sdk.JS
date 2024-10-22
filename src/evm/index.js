@@ -114,15 +114,15 @@ function getDenomName(name, address) {
 
 
 
-export async function orderPay(nftType, recipient, tokenId, fee, assetId) {
+export async function orderPay(nftType, recipient, nftId, fee, assetId) {
     fee = web3Obj.utils.toWei(fee.toString());
     if(nftType == "ERC721") {
-        let result = await erc721Platform.transfer(recipient, tokenId, fee);
+        let result = await erc721Platform.transfer(recipient, nftId, fee);
         console.log(result);
         return result;
     }
     else if(nftType == "ERC1155") {
-        let result = await erc1155Platform.transfer(recipient, tokenId, fee, assetId);
+        let result = await erc1155Platform.transfer(recipient, nftId, fee, assetId);
         console.log(result);
         return result;
     }
@@ -479,38 +479,38 @@ export async function revokeApprovesWithArray(nftType, tokenArr, value, onAssetI
     }
 }
 
-export async function transferFrom(nftType, toAddress, tokenId, countValue) {
-    // let mint = await uptick721.mint(tokenId, memo);
+export async function transferFrom(nftType, toAddress, nftId, amountValue) {
+    // let mint = await uptick721.mint(nftId, memo);
     // console.log(mint);
     if (nftType == "ERC721") {
-        let transferFrom = await uptick721.transferFrom(toAddress, tokenId);
+        let transferFrom = await uptick721.transferFrom(toAddress, nftId);
         console.log(transferFrom);
     
         return transferFrom;
     }
     else if (nftType == "ERC1155") {
-        let transferFrom = await uptick1155.safeTransferFrom(toAddress, tokenId, countValue);
+        let transferFrom = await uptick1155.safeTransferFrom(toAddress, nftId, amountValue);
         console.log(transferFrom);
     
         return transferFrom;
     }
 }
 
-export async function mintNft(nftType, toAddress, tokenId, baseurl,royaltyPercentage,amountValue) {
+export async function mintNft(nftType, toAddress, nftId, metaDataUrl,royaltyPercentage,amountValue) {
     if (nftType == "ERC721") {
-        let transferFrom = await uptick721.mintNft(toAddress, tokenId,baseurl,royaltyPercentage);
+        let transferFrom = await uptick721.mintNft(toAddress, nftId,metaDataUrl,royaltyPercentage);
         console.log(transferFrom);
     
         return transferFrom;
     }
     else if (nftType == "ERC1155") {
-        let transferFrom = await uptick1155.mintNft(toAddress, tokenId, baseurl,royaltyPercentage,amountValue);
+        let transferFrom = await uptick1155.mintNft(toAddress, nftId, metaDataUrl,royaltyPercentage,amountValue);
         console.log(transferFrom);
     
         return transferFrom;
     }
 }
-export async function lazyNftMint(toAddress,tokenId,baseurl,payAddress,payAmount,creatorFee,signature) {
+export async function lazyNftMint(toAddress,nftId,metaDataUrl,payAddress,payAmount,creatorFee,signature) {
 	 let fee=0;
  if(payAddress == '0x0000000000000000000000000000000000000000' ){
 	 fee=payAmount
@@ -526,7 +526,7 @@ export async function lazyNftMint(toAddress,tokenId,baseurl,payAddress,payAmount
  	  }
  }
  
-        let mintFrom = await lazyNFT.lazyMint(toAddress,tokenId,baseurl,payAddress,payAmount,creatorFee,signature,fee);
+        let mintFrom = await lazyNFT.lazyMint(toAddress,nftId,metaDataUrl,payAddress,payAmount,creatorFee,signature,fee);
         console.log(mintFrom);
     
         return mintFrom;
@@ -618,7 +618,7 @@ export async function placeOrder(nftType, nftAddress, nftId, toAddress, price,ma
 }
 
 // createOffer
-export async function createOffer(nftType,offerNumber, nftAddress, tokenId,payAddress,payAmount,expiry,fee) {
+export async function createOffer(nftType,offerNumber, nftAddress, nftId,payAddress,payAmount,expiry,fee) {
 	  	fee = web3Obj.utils.toWei(fee.toString());
 	if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
 		// uptick测试环境生产环境的IRIS ATOM 保留6位
@@ -643,12 +643,12 @@ export async function createOffer(nftType,offerNumber, nftAddress, tokenId,payAd
    }
    
     if(nftType == "ERC721") {
-        let result = await erc721Offer.createOffer(offerNumber, nftAddress, tokenId,payAddress,payAmount,expiry,fee.toString());
+        let result = await erc721Offer.createOffer(offerNumber, nftAddress, nftId,payAddress,payAmount,expiry,fee.toString());
         console.log(result);
         return result;
     }
     else if(nftType == "ERC1155") {
-        let result = await erc1155Offer.createOffer(offerNumber, nftAddress, tokenId,payAddress,payAmount,expiry,fee.toString());
+        let result = await erc1155Offer.createOffer(offerNumber, nftAddress, nftId,payAddress,payAmount,expiry,fee.toString());
         console.log(result);
         return result;
     }
@@ -670,12 +670,12 @@ export async function cancelOffer(nftType,offerNumber) {
 }
 
 //AcceptOffer
-export async function acceptOffer(nftType,offerNumber,nftAddress,tokenId,offerPlatformAddress) {
-console.log("acceptOffer",nftType,offerNumber,nftAddress,tokenId);
+export async function acceptOffer(nftType,offerNumber,nftAddress,nftId,offerPlatformAddress) {
+console.log("acceptOffer",nftType,offerNumber,nftAddress,nftId);
     if(nftType == "ERC721") {
 		
-		 let setApproval = await uptick721.setApprovTokenid(offerPlatformAddress,tokenId);
-        let result = await erc721Offer.acceptOffer(offerNumber,nftAddress,tokenId);
+		 let setApproval = await uptick721.setApprovTokenid(offerPlatformAddress,nftId);
+        let result = await erc721Offer.acceptOffer(offerNumber,nftAddress,nftId);
         console.log(result);
         return result;
     }
@@ -685,7 +685,7 @@ console.log("acceptOffer",nftType,offerNumber,nftAddress,tokenId);
 		    let setApproval = await uptick1155.setApprovalForAll(offerPlatformAddress);
 		    console.log(setApproval);
 		}
-        let result = await erc1155Offer.acceptOffer(offerNumber,nftAddress,tokenId);
+        let result = await erc1155Offer.acceptOffer(offerNumber,nftAddress,nftId);
         console.log(result);
         return result;
     }
@@ -725,12 +725,12 @@ if(nftType == 'ERC721'){
 }
 
 
-export async function uptickToPolygon(srcChainName,destinationChainId, toAddress,metadate,fee,bridgeAddress) {
+export async function uptickCrossToEVM(srcChainName,destinationChainId, toAddress,metadate,fee,bridgeAddress) {
    
 
     console.log("fee",fee);
     fee = web3Obj.utils.toWei(fee.toString());
-   let result= await bridge.uptickToPolygon(srcChainName,destinationChainId, toAddress,metadate,fee)
+   let result= await bridge.uptickCrossToEVM(srcChainName,destinationChainId, toAddress,metadate,fee)
    return result;
 }
 
