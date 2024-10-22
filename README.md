@@ -336,11 +336,10 @@ offerPlatformAddress  | String | 出价合约地址
 
 
 
-<<<<<<< Updated upstream
-##example
-=======
-## 参考demo
->>>>>>> Stashed changes
+
+## example
+
+
 
 ## 联系我们
 
