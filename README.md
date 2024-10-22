@@ -31,6 +31,73 @@ let wallet=metaMaskInit(rpc,chainId)
 Vue.prototype.$wallet = wallet.wallet;
 ```
 
+## 初始化walletConnect
+
+```
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
+import { ethers } from "ethers";
+
+export async function initProvider(){
+		 const provider = await EthereumProvider.init({
+		   projectId,
+		   optionalChains: [chainIdInt], //current chainId
+		   metadata: {
+		       name: 'UptickNFT',
+		       description: 'Build your NFT world on Uptick',
+		       url: gethost(), // origin must match your domain & subdomain
+		       icons: ['https://uptick.upticknft.com/logo.jpg']
+		     },
+		   optionalMethods: ["eth_sendTransaction",
+		                  "personal_sign",
+		                  "eth_estimateGas",
+		                  
+                            "eth_signTypedData"],
+		   showQrModal: true,
+		   qrModalOptions: {
+		     themeMode: "light",
+		   },
+
+           rpcMap: {
+            1170:uptickUrl,
+        
+          }
+		 });
+		 provider.chainId=chainIdInt;
+		const WalletProvider = new ethers.providers.Web3Provider(provider)
+		  provider.on("display_uri", (uri) => {
+		   		    events.$emit('wallet_is_connect',uri)
+		  });
+		  // chain changed
+		  provider.on('chainChanged', (result) => {
+		   
+		  });
+		  // accounts changed
+		  provider.on('accountsChanged', (accounts) => {
+		    
+                
+		  });
+		  // session established
+		  provider.on('connect', (result) => {
+		  let walletparams = {
+            connected:true
+          }
+              localStorage.setItem("walletconnect",JSON.stringify(walletparams) );
+		   
+		  });
+		  
+		  provider.on('session_event', (result) => {
+		    		  });
+		  provider.on('disconnect',(result) => {
+		  		  });
+		
+		  window.walletProvider=provider;
+		  return provider;
+		 
+	 }
+	 
+
+```
+
 ## 方法介绍
 
 获取用户信息,获得当前链接的钱包地址
@@ -302,44 +369,8 @@ toAddress  | String | 接受地址
 metadate  | String | metadate信息
 offerPlatformAddress  | String | 出价合约地址
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## example
-
-
 
 ## 联系我们
 
+https://github.com/UptickNetwork/uptick-web3-sdk/issues
