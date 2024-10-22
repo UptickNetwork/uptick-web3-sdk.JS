@@ -4,18 +4,18 @@ uptick web3 SDK 是一个适用与 vue项目的,非常轻松地将用户连接�
 
 通过SDK 您可以操作 NFT 发布合约，创建资产，转送资产，多种销售模式（普通上架，优惠上架，懒铸造发布，货品卡发布）等。同时，如果您使用uptick api 服务（开发中，请期待）能更容易的做dapp，但是却包含了NFT从创建到销售的完整功能。
 
-##安装SDK
+## 安装SDK
 
 To install with Yarn, run:
 ```
-yarn install @uptickjs/uptick-web3-sdk
+yarn add @uptickjs/uptick-web3-sdk
 ```
 To install with NPM, run:
 ```
-npm i @uptickjs/uptick-web3-sdk
+npm install @uptickjs/uptick-web3-sdk
 ```
 
-##初始化SDK
+## 初始化SDK
 
 在项目入口文件 app.js 初始化SDK
 
@@ -31,7 +31,7 @@ let wallet=metaMaskInit(rpc,chainId)
 Vue.prototype.$wallet = wallet.wallet;
 ```
 
-##方法介绍
+## 方法介绍
 
 获取用户信息,获得当前链接的钱包地址
 ```
@@ -336,7 +336,11 @@ offerPlatformAddress  | String | 出价合约地址
 
 
 
+<<<<<<< Updated upstream
 ##example
+=======
+## 参考demo
+>>>>>>> Stashed changes
 
-##联系我们
+## 联系我们
 
