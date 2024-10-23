@@ -21,7 +21,7 @@ export function setContractAddress(platformAddress) {
 }
 
 
-export async function onSale( nftAddress,nftid, value,couponCode,reducedPrice,fee,chainAddress) {
+export async function onSale( nftAddress,nftid, value,couponCode,reducedPrice,fee,payAddress) {
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 
@@ -35,13 +35,13 @@ export async function onSale( nftAddress,nftid, value,couponCode,reducedPrice,fe
 	let hasWalletConnect = isWalletConnect();
 	if(!hasWalletConnect){
 		let gasSetting = await base.getGasPriceAndGasLimit();
-		let rep = await contract.onSale(nftAddress, nftid, value,chainAddress,couponCode,reducedPrice, {
+		let rep = await contract.onSale(nftAddress, nftid, value,payAddress,couponCode,reducedPrice, {
 		    value: fee, gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit
 		});
 		return rep;
 		
 	}else{
-		  let data= contract.methods.onSale(nftAddress, nftid, value,chainAddress,couponCode,reducedPrice).encodeABI()
+		  let data= contract.methods.onSale(nftAddress, nftid, value,payAddress,couponCode,reducedPrice).encodeABI()
 		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,fee);
 		return result;
 		 

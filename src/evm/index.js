@@ -129,20 +129,20 @@ export async function orderPay(nftType, recipient, nftId, fee, assetId) {
 }
 
 
-export async function onSaleBatch(nftType, nftAddresss,nftids, values,fee,amounts, chainAddress) {
+export async function onSaleBatch(nftType, nftAddresss,nftids, values,fee,amounts, payAddress) {
     	
     let prices = []
-    let chainAddresss= []
-	if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+    let payAddresss= []
+	if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
 		// uptick测试环境生产环境的IRIS ATOM 保留6位
 	for (let i = 0; i < values.length; i++) {
 	    prices.push(values[i] * 1000000)
-	    chainAddresss.push(chainAddress)
+	    payAddresss.push(payAddress)
 	}
 	}else{
 	for (let i = 0; i < values.length; i++) {
 	    prices.push(web3Obj.utils.toWei(values[i].toString()))  
-	    chainAddresss.push(chainAddress)
+	    payAddresss.push(payAddress)
 	}
 	   
 	}
@@ -158,8 +158,8 @@ export async function onSaleBatch(nftType, nftAddresss,nftids, values,fee,amount
 
         
          fee = web3Obj.utils.toWei(fee.toString());
-         console.log("wxl --- chainAddresss",chainAddresss)
-        let result = await erc721Platform.onSaleBatch(nftAddresss,nftids,prices,fee,chainAddresss);
+         console.log("wxl --- payAddresss",payAddresss)
+        let result = await erc721Platform.onSaleBatch(nftAddresss,nftids,prices,fee,payAddresss);
         console.log(result);
         return result;
     }
@@ -173,16 +173,16 @@ export async function onSaleBatch(nftType, nftAddresss,nftids, values,fee,amount
         }
   
         fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc1155Platform.onSaleBatch(nftAddresss,nftids, prices,fee,amounts,chainAddresss);
+        let result = await erc1155Platform.onSaleBatch(nftAddresss,nftids, prices,fee,amounts,payAddresss);
         console.log(result);
         return result;
     }
     
 }
 
-export async function onSale(nftType, nftAddress,nftid, value,fee,amount, chainAddress) {
+export async function onSale(nftType, nftAddress,nftid, value,fee,amount, payAddress) {
 
-        if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265'|| chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831' ){
+        if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265'|| payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831' ){
 			// uptick测试环境生产环境的IRIS ATOM 保留6位
              value =  value * 1000000
         }else{
@@ -206,7 +206,7 @@ export async function onSale(nftType, nftAddress,nftid, value,fee,amount, chainA
 
         
          fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc721Platform.onSale(nftAddress,nftid, value,fee,chainAddress);
+        let result = await erc721Platform.onSale(nftAddress,nftid, value,fee,payAddress);
         console.log(result);
         return result;
     }
@@ -223,15 +223,15 @@ export async function onSale(nftType, nftAddress,nftid, value,fee,amount, chainA
         }
     
         fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc1155Platform.onSale(nftAddress,nftid, value,fee,amount,chainAddress);
+        let result = await erc1155Platform.onSale(nftAddress,nftid, value,fee,amount,payAddress);
         console.log(result);
         return result;
     }
     
 }
-export async function couponOnSale(nftType, nftAddress,nftid, value,couponCode,reducedPrice,fee,amount,chainAddress) {
+export async function couponOnSale(nftType, nftAddress,nftid, value,couponCode,reducedPrice,fee,amount,payAddress) {
     console.log("couponOnSale",fee);
-        if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+        if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
 			// uptick测试环境生产环境的IRIS ATOM 保留6位
             value =  value * 1000000
             reducedPrice =  reducedPrice * 1000000
@@ -251,7 +251,7 @@ export async function couponOnSale(nftType, nftAddress,nftid, value,couponCode,r
         }
    
         fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc721CouponPlatform.onSale(nftAddress,nftid, value,couponCode,reducedPrice,fee,chainAddress);
+        let result = await erc721CouponPlatform.onSale(nftAddress,nftid, value,couponCode,reducedPrice,fee,payAddress);
         console.log(result);
         return result;
     }
@@ -265,7 +265,7 @@ export async function couponOnSale(nftType, nftAddress,nftid, value,couponCode,r
         }
         fee = web3Obj.utils.toWei(fee.toString());
 
-        let result = await erc1155CouponPlatform.onSale(nftAddress,nftid, value,couponCode,reducedPrice,fee,amount,chainAddress);
+        let result = await erc1155CouponPlatform.onSale(nftAddress,nftid, value,couponCode,reducedPrice,fee,amount,payAddress);
         console.log(result);
         return result;
     }
@@ -317,9 +317,9 @@ export async function offSaleBatch(nftType, nftAddress,nftids) {
 
 //auction_onsale
 
-export async function auction_onsale(nftType, nftAddress,nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,amount,chainAddress) {
+export async function auction_onsale(nftType, nftAddress,nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,amount,payAddress) {
 	
-	if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+	if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
 		// uptick测试环境生产环境的IRIS ATOM 保留6位
 	startBid =  startBid * 1000000
 	fixPrice =  fixPrice * 1000000
@@ -342,7 +342,7 @@ export async function auction_onsale(nftType, nftAddress,nftid, startTimeStamp,e
     
        
          fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc721Auction.onSale(nftAddress,nftid,startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,chainAddress);
+        let result = await erc721Auction.onSale(nftAddress,nftid,startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,payAddress);
         console.log(result);
         return result;
     }
@@ -357,7 +357,7 @@ export async function auction_onsale(nftType, nftAddress,nftid, startTimeStamp,e
      
         // value = web3Obj.utils.toWei(value.toString());
         fee = web3Obj.utils.toWei(fee.toString());
-        let result = await erc1155Auction.onSale(nftAddress,nftid,startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,amount,chainAddress);
+        let result = await erc1155Auction.onSale(nftAddress,nftid,startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,amount,payAddress);
         console.log(result);
         return result;
     }
@@ -366,9 +366,9 @@ export async function auction_onsale(nftType, nftAddress,nftid, startTimeStamp,e
 
 //auction_placeBid result = await this.$wallet.auction_placeBid(
     
-export async function auction_placeBid(nftType, nftAddress,nftid,fixPrice,chainAddress,owner ) {
+export async function auction_placeBid(nftType, nftAddress,nftid,fixPrice,payAddress,owner ) {
     let fee = 0
-	if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+	if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
 		// uptick测试环境生产环境的IRIS ATOM 保留6位
 	  fixPrice =  fixPrice * 1000000
 	}else{
@@ -376,7 +376,7 @@ export async function auction_placeBid(nftType, nftAddress,nftid,fixPrice,chainA
 	   
 	}
 	
-    if(chainAddress != '0x0000000000000000000000000000000000000000' ){
+    if(payAddress != '0x0000000000000000000000000000000000000000' ){
 
       
         let isApproved
@@ -567,8 +567,8 @@ export function setContractAddress(nftType, addressObject) {
 }
 
 //  placeOrder
-export async function placeOrder(nftType, nftAddress, nftId, toAddress, price,marketType,couponCode,couponLink,chainAddress) {
-   if(chainAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || chainAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || chainAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| chainAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || chainAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || chainAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+export async function placeOrder(nftType, nftAddress, nftId, toAddress, price,marketType,couponCode,couponLink,payAddress) {
+   if(payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || payAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| payAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || payAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
    	// uptick测试环境生产环境的IRIS ATOM 保留6位
     price =  price * 1000000
    }else{
@@ -576,7 +576,7 @@ export async function placeOrder(nftType, nftAddress, nftId, toAddress, price,ma
       
    }
    
-    if(chainAddress != '0x0000000000000000000000000000000000000000'){
+    if(payAddress != '0x0000000000000000000000000000000000000000'){
    
        
         let isApproved

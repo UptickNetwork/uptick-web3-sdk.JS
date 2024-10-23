@@ -81,7 +81,7 @@ export async function placeOrder( nftAddress,nftId, toAddress, price) {
 	
 }
 
-export async function onSale( nftAddress,nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,chainAddress) {
+export async function onSale( nftAddress,nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,fee,payAddress) {
     
     
     const account = await base.getAccounts();
@@ -97,13 +97,13 @@ export async function onSale( nftAddress,nftid, startTimeStamp,endTimeStamp,star
 	let hasWalletConnect = isWalletConnect();
 	if(!hasWalletConnect){
 		let gasSetting = await base.getGasPriceAndGasLimit();
-		let rep = await contract.createAuction(nftAddress, nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,chainAddress, {
+		let rep = await contract.createAuction(nftAddress, nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,payAddress, {
 		    value: fee, gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit
 		});
 		return rep;
 		
 	}else{
-		  let data= contract.methods.createAuction(nftAddress, nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,chainAddress).encodeABI()
+		  let data= contract.methods.createAuction(nftAddress, nftid, startTimeStamp,endTimeStamp,startBid,fixPrice,ReserveBid,payAddress).encodeABI()
 		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,fee);
 		return result;
 		 

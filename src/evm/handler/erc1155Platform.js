@@ -55,7 +55,7 @@ export async function transfer(owner, tokenId, value, assetId) {
 	
 }
 
-export async function onSale(nftAddress,nftid, value,fee,amount,chainAddress) {
+export async function onSale(nftAddress,nftid, value,fee,amount,payAddress) {
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
   
@@ -69,19 +69,19 @@ let hasWalletConnect=isWalletConnect();
 	if(!hasWalletConnect){
 		let gasSetting = await base.getGasPriceAndGasLimit();
 		
-		let rep = await contract.onSale(nftAddress, nftid, value,amount,chainAddress, {
+		let rep = await contract.onSale(nftAddress, nftid, value,amount,payAddress, {
 		    value: fee, gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit
 		});
 		return rep;
 	}else{
-		  let data= contract.methods.onSale(nftAddress, nftid, value,amount,chainAddress).encodeABI()
+		  let data= contract.methods.onSale(nftAddress, nftid, value,amount,payAddress).encodeABI()
 		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,fee);
 		return result;
 		 
 	}
 }
 // onSaleBatch
-export async function onSaleBatch(nftAddresss,nftids, values,fee,amounts,chainAddresss) {
+export async function onSaleBatch(nftAddresss,nftids, values,fee,amounts,payAddresss) {
     const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
     console.log(fee);
@@ -96,12 +96,12 @@ export async function onSaleBatch(nftAddresss,nftids, values,fee,amounts,chainAd
 		if(!hasWalletConnect){
 			let gasSetting = await base.getGasPriceAndGasLimit();
 			
-			let rep = await contract.onSaleBatch(nftAddresss, nftids, values,amounts,chainAddresss, {
+			let rep = await contract.onSaleBatch(nftAddresss, nftids, values,amounts,payAddresss, {
 			    value: fee, gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit
 			});
 			return rep;
 		}else{
-			  let data= contract.methods.onSaleBatch(nftAddresss, nftids, values,amounts,chainAddresss).encodeABI()
+			  let data= contract.methods.onSaleBatch(nftAddresss, nftids, values,amounts,payAddresss).encodeABI()
 			let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,fee);
 			return result;
 			 
