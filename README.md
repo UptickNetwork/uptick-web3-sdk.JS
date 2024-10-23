@@ -154,8 +154,8 @@ Params     |  Parameter type     |  Require  | Parameter description
 toAddress  | String | true | 接收地址
 nftId  | String | true | nftId
 metaDataUrl  | String | true | metadata信息
-payAddress  | String | true | 多币种合约地址
-payAmount  | Number | true | mint资产数量
+payAddress  | String | true | 支付token约地址
+payAmount  | Number | true | 支付金额
 creatorFee  | Number | true | 支付手续费
 signature  | String | true | 签名信息
 
