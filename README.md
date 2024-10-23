@@ -142,7 +142,7 @@ nftType  | String | true| 创建类型
 toAddress  | String | true | 接收地址
 nftId  | String | true | nftId
 metaDataUrl  | String | true | metadata信息
-royaltyPercentage  | String | true | 接收地址
+royaltyPercentage  | String | true | 分成比例
 amountValue  | Number | false | 创建数量
 
 懒铸造创建资产
