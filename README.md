@@ -5,7 +5,7 @@ Uptick Web3 SDK is a powerful tool for Vue projects that streamlines the connect
 
 With the SDK, developers can perform a variety of operations on NFTs, including publishing smart contracts, minting NFTs, transferring assets, and implementing multiple sales modes such as fixed-price listings, discounted sales, timed auctions, and lazy mints.
 
-Additionally, we are developing the Uptick API service, which will encompass the entire process from NFT creation to market sales, further simplifying your DApp development journey. Stay tuned for more updates!
+This is the first step of releasing the comprehensive Uptick services to the dev community. The Uptick services via cloud APIs is the next deliverable. The whole service layer will be developed and released via iterations. It will greatly simplify Web3 business application development for traditional developers. Stay tuned for more updates!
 
 ## Installing the SDK
 
