@@ -166,7 +166,7 @@ setContractAddress()
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---:
 nftType  | String | nft类型
-platformAddress  | String | 合约地址
+platformAddress  | String | 交易合约地址
 
 
 资产转送
@@ -298,8 +298,8 @@ nftid  | String | nftid
 toAddress  | String  | 购买者地址
 price  | Number  | 购买价格
 marketType  | String  | 购买类型
-couponCode  | String  | 优惠码
-couponLink  | String  | couponLink
+couponCode  | String  | 优惠码，没有就填‘0’
+couponLink  | String  | couponLink，没有就填‘0’
 payAddress  | String  | 支付币种合约地址
 
 出价
@@ -338,7 +338,7 @@ nftAddress  | String | nft合约地址
 nftid  | String | nftid
 offerPlatformAddress  | String | 出价合约地址
 
-设置跨链合约地址
+授权跨链合约
 ```
 setBridgeApproval()
 ```
@@ -348,7 +348,7 @@ nftType  | String | nft类型
 
 
 
-跨链手续费
+查询跨链手续费
 ```
 getFeeByChainID()
 ```
@@ -358,13 +358,13 @@ tokenIds  | Array | tokenid
 chainId  | Number | 链chainid
 
 
-资产跨链
+资产跨链，支持Uptick\Polygon\Arbitrum\BSC 
 ```
 uptickCrossToEVM()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
-srcChainName  | String | 当前链名称
+srcChainName  | String | 来源链名称
 destinationChainId  | Number | 目标链chainid
 toAddress  | String | 接受地址
 metadate  | String | metadate信息
@@ -372,6 +372,6 @@ offerPlatformAddress  | String | 出价合约地址
 
 ## example
 
-## 联系我们
+## issues报告
 
 https://github.com/UptickNetwork/uptick-web3-sdk/issues
