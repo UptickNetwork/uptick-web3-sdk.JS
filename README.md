@@ -1,11 +1,13 @@
+
 # uptick-web3-sdk
 
+Uptick Web3 SDK is a powerful tool for Vue projects that streamlines the connection of users to your decentralized applications (DApp) and facilitates blockchain interactions. This SDK supports both Metamask and WalletConnect logins, making it ideal for applications that require user authentication and blockchain transactions.
 
-uptick web3 SDK 是一个适用于 Vue 项目的工具，可以简化用户连接到您的去中心化应用（Dapp）的过程，并实现与区块链的交互。这个 SDK 支持 Metamask 和 WalletConnect 登录，这对于需要用户身份验证和区块链交易的应用来说是非常有用的。
+With the SDK, developers can perform a variety of operations on NFTs, including publishing smart contracts, minting NFTs, transferring assets, and implementing multiple sales modes such as fixed-price listings, discounted sales, timed auctions, and lazy mints.
 
-通过SDK，开发者可以实现对 NFT的一系列操作 如：发布合约，创建资产，转送资产，支持多种销售模式（普通上架，优惠上架，懒铸造发布，货品卡发布）等。同时，如果您使用uptick api 服务（开发中，请期待）能够进一步简化的开发Dapp的开发过程，API服务支持NFT从创建到市场销售的完整功能。
+Additionally, we are developing the Uptick API service, which will encompass the entire process from NFT creation to market sales, further simplifying your DApp development journey. Stay tuned for more updates!
 
-## 安装SDK
+## Installing the SDK
 
 To install with Yarn, run:
 ```
@@ -16,9 +18,9 @@ To install with NPM, run:
 npm install @uptickjs/uptick-web3-sdk
 ```
 
-## 初始化SDK
+## Initialize SDK
 
-在项目入口文件 app.js 初始化SDK
+Initialize SDK in the project entry file app.js
 
 ```
 import { init as metaMaskInit } from '@uptickjs/uptick-web3-sdk/src/index';
@@ -32,7 +34,7 @@ let wallet=metaMaskInit(rpc,chainId)
 Vue.prototype.$wallet = wallet.wallet;
 ```
 
-## 初始化walletConnect
+## Initialize walletConnect
 
 ```
 import { EthereumProvider } from "@walletconnect/ethereum-provider";
@@ -59,7 +61,7 @@ export async function initProvider(){
 		   },
 
            rpcMap: {
-            1170:uptickUrl,
+            117:uptickUrl,
         
           }
 		 });
@@ -99,279 +101,279 @@ export async function initProvider(){
 
 ```
 
-## 方法介绍
+## Method introduction
 
-获取用户信息,获得当前链接的钱包地址
+#### Get user information, get the currently linked wallet address
 ```
 getAccountInfo()
 ```
-Evm地址转换为Uptick地址
+#### Convert Evm address to Uptick address
 ```
 getUptickAddress()
 ```
-Params     |  Parameter type  | Parameter description
+Params | Parameter type | Parameter description
 :---: | :---: | :---:
-evmAddress  | String | 用户地址
+evmAddress | String | User address
 
-获取余额
+#### Get balance
 ```
 getTokenBalance()
 ```
-Params     |  Parameter type  | Parameter description
+Params | Parameter type | Parameter description
 :---: | :---: | :---:
-owner  | String | 用户地址
+owner | String | User address
 
-创建合约
+#### Create a contract
 ```
 deploy()
 ```
-Params     |  Parameter type     |  Require  | Parameter description
+Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
-nftType  | String | true| nft类型
-name  | String | true | 合约名字
-metadataUrl  | String | false | metadata信息
-lazySignAddress  | String | false | 签名地址，用于mint资产时验证签名
+nftType | String | true| nft type
+name | String | true | contract name
+metadataUrl | String | false | metadata information
+lazySignAddress | String | false | signature address, used to verify signature when minting assets
 
-创建资产
+#### Mint NFTs
 ```
 mintNft()
 ```
-Params     |  Parameter type     |  Require  | Parameter description
+Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
-nftType  | String | true| nft类型
-toAddress  | String | true | 接收地址
-nftId  | String | true | nftId
-metaDataUrl  | String | true | metadata信息
-royaltyPercentage  | String | true | 分成比例
-amountValue  | Number | false | 数量
+nftType | String | true| nft type
+toAddress | String | true | receiving address
+nftId | String | true | nftId
+metaDataUrl | String | true | metadata information
+royaltyPercentage | String | true | Share ratio
+amountValue | Number | false | Quantity
 
-懒铸造创建资产
+#### Lazy mint NFTs
 ```
 lazyNftMint()
 ```
-Params     |  Parameter type     |  Require  | Parameter description
+Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
-toAddress  | String | true | 接收地址
-nftId  | String | true | nftId
-metaDataUrl  | String | true | metadata信息
-payAddress  | String | true | 支付token合约地址
-payAmount  | Number | true | 支付金额
-creatorFee  | Number | true | 支付手续费
-signature  | String | true | 签名信息
+toAddress | String | true | Receiving address
+nftId | String | true | nftId
+metaDataUrl | String | true | Metadata information
+payAddress | String | true | Payment address of token contract
+payAmount | Number | true | Payment amount
+creatorFee | Number | true | Payment fee
+signature | String | true | Signature information
 
-设置合约地址
+####  Set the contract address
 ```
 setContractAddress()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---:
-nftType  | String | nft类型
-platformAddress  | String | 交易合约地址
+nftType | String | nft type
+platformAddress | String | transaction contract address
 
 
-资产转送
+#### NFT Transfer
 ```
 transferFrom()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-toAddress  | String | 接收地址
-nftId  | String | nftId
-amountValue  | Number  | 转送数量
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+toAddress | String | receiving address
+nftId | String | nftId
+amountValue | Number | transfer amount
 
-资产普通销售上架
+#### NFT Listing
 ```
 onSale()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-value  | String | 上架价格
-fee  | Number | 手续费
-amount  | Number  | 上架数量
-payAddress  | String  | 上架币种合约地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+value | String | Listing price
+fee | Number | Handling fee
+amount | Number | Listing quantity
+payAddress | String | The token contract address for selling your NFT 
 
-资产普通销售批量上架
+#### NFT Listing in Batches
 ```
 onSaleBatch()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftids  | Array | nftid
-value  | Array | 上架价格
-fee  | Number | 手续费
-amounts  | Array  | 上架数量
-payAddress  | Array  | 上架币种合约地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftids | Array | nftid
+value | Array | Listing price
+fee | Number | Handling fee
+amounts | Array | Listing quantity
+payAddress | Array | The token contract address for selling your NFT
 
-资产优惠销售上架
+#### Discounted Sales
 ```
 couponOnSale()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-value  | String | 上架价格
-couponCode  | String | 优惠码
-reducedPrice | Number | 优惠价格
-fee  | Number | 手续费
-amount  | Number  | 上架数量
-payAddress  | String  | 上架币种合约地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+value | String | Listing price
+couponCode | String | Discount code
+reducedPrice | Number | Discount price
+fee | Number | Handling fee
+amount | Number | Listing quantity
+payAddress | String | The token contract address for selling your NFT
 
-资产拍卖上架
+#### Timed-auction
 ```
 auction_onsale()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-startTimeStamp  | String | 拍卖开始时间
-endTimeStamp  | String | 拍卖结束时间
-startBid  | String | 起拍价
-fixPrice  | String | 一口价
-ReserveBid  | String | 保底价
-fee  | Number | 手续费
-amount  | Number  | 上架数量
-payAddress  | String  | 上架币种合约地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+startTimeStamp | String | auction start time
+endTimeStamp | String | auction end time
+startBid | String | starting price
+fixPrice | String | fixed price
+ReserveBid | String | reserve price
+fee | Number | handling fee
+amount | Number | listing quantity
+payAddress | String | The token contract address for selling your NFT
 
-拍卖竞价
+#### Place a bid in auction
 ```
 auction_placeBid()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-fixPrice  | Number | 竞拍价格
-payAddress  | String  | 支付币种合约地址
-owner  | String  | 竞拍者地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+fixPrice | Number | Bidding price
+payAddress | String | The token contract address for bidding
+owner | String | Bidder address
 
-资产下架
+#### NFT Delisting
 ```
 offSale()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
 
-资产批量下架
+#### NFT Delisting in Batches
 ```
 offSaleBatch()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftids  | Array | nftid
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftids | Array | nftid
 
-拍卖下架
+#### Withdraw an auction
 ```
 auction_end()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-owner  | String  | ERC1155类型，需要上架者地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+owner | String | ERC1155 type, requires the address of the owner
 
-购买资产
+#### NFT Purchasing
 ```
 placeOrder()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-toAddress  | String  | 购买者地址
-price  | Number  | 购买价格
-marketType  | String  | 购买类型
-couponCode  | String  | 优惠码，没有就填‘0’
-couponLink  | String  | couponLink，没有就填‘0’
-payAddress  | String  | 支付币种合约地址
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+nftAddress | String | nft contract address
+nftid | String | nftid
+toAddress | String | buyer address
+price | Number | purchase price
+marketType | String | purchase type
+couponCode | String | coupon code, fill in ‘0’ if none
+couponLink | String | couponLink, fill in ‘0’ if none
+payAddress | String | The token contract address for purchasing
 
-出价
+#### Place an Offer
 ```
 createOffer()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-offerNumber  | String | 出价号码(随机数)
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-payAddress  | String | 支付币种合约地址
-payAmount  | Number | 出价金额
-expiry | String | 出价有效期
-fee  | Number | 手续费
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+offerNumber | String | Offer number (random number)
+nftAddress | String | nft contract address
+nftid | String | nftid
+payAddress | String | The token contract address for offer
+payAmount | Number | Offer amount
+expiry | String | Offer validity period
+fee | Number | Handling fee
 
-取消出价
+#### Withdraw an Offer
 ```
 cancelOffer()
 ```
-Params     |  Parameter type  | Parameter description
-:---: | :---: | :---: 
-nftType  | String | nft类型
-offerNumber  | String | 出价号码(随机数)
+Params | Parameter type | Parameter description
+:---: | :---: | :---:
+nftType | String | nft type
+offerNumber | String | Offer number (random number)
 
-接受出价
+#### Accept an Offer
 ```
 acceptOffer()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
-nftType  | String | nft类型
-offerNumber  | String | 出价号码(随机数)
-nftAddress  | String | nft合约地址
-nftid  | String | nftid
-offerPlatformAddress  | String | 出价合约地址
+nftType | String | nft type
+offerNumber | String | offer number (random number)
+nftAddress | String | nft contract address
+nftid | String | nftid
+offerPlatformAddress | String | offer contract address
 
-授权跨链合约
+#### Authorize cross-chain contracts
 ```
 setBridgeApproval()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
-nftType  | String | nft类型
+nftType | String | nft type
 
 
-
-查询跨链手续费
+#### Query cross-chain transfer fees
 ```
 getFeeByChainID()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 tokenIds  | Array | tokenid
-chainId  | Number | 链chainid
+chainId  | Number | chainid
 
 
-资产跨链，支持Uptick\Polygon\Arbitrum\BSC 
+#### Support NFT cross-chain transfer, between Uptick with Polygon\Arbitrum\BSC 
+
 ```
 uptickCrossToEVM()
 ```
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
-srcChainName  | String | 来源链名称
-destinationChainId  | Number | 目标链chainid
-toAddress  | String | 接受地址
-metadate  | String | metadate信息
-offerPlatformAddress  | String | 出价合约地址
+srcChainName | String | Source chain name
+destinationChainId | Number | Target chain chainid
+toAddress | String | Receiving address
+metadate | String | Metadate information
+offerPlatformAddress | String | Offer contract address
 
-## example
 
-## issues报告
+
+## Problem Reporting
 
 https://github.com/UptickNetwork/uptick-web3-sdk/issues
