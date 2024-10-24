@@ -1,11 +1,30 @@
-
 # uptick-web3-sdk
 
-Uptick Web3 SDK is a powerful tool for Vue projects that streamlines the connection of users to your decentralized applications (DApp) and facilitates blockchain interactions. This SDK supports both Metamask and WalletConnect logins, making it ideal for applications that require user authentication and blockchain transactions.
+## Essential Web3 functions rolled into a single package
+Uptick Web3 SDK is a core element of these services. It consolidates essential Web3 functions into a single package, enabling developers to efficiently create business-specific applications using Uptick infrastructure. This approach allows developers to focus on business logic without needing to manage general-purpose modules or possess deep blockchain expertise.
 
-With the SDK, developers can perform a variety of operations on NFTs, including publishing smart contracts, minting NFTs, transferring assets, and implementing multiple sales modes such as fixed-price listings, discounted sales, timed auctions, and lazy mints.
+## Supports Vue Development Framework with React Native SDK coming soon
+Uptick Web3 SDK is a JavaScript SDK that currently supports the Vue development framework. React and React Native developers can refer to the contract files and calling methods within the SDK to assemble the signature manually. The React Native version of the SDK will be launched soon. SDKs for other programming languages are also in development, so stay tuned.
 
-This is the first step of releasing the comprehensive Uptick services to the dev community. The Uptick services via cloud APIs is the next deliverable. The whole service layer will be developed and released via iterations. It will greatly simplify Web3 business application development for traditional developers. Stay tuned for more updates!
+## What Can Developers Do with the Uptick Web3 SDK？
+The Uptick Web3 SDK is a powerful tool for Vue projects, simplifying user connections to decentralized applications (DApps) and streamlining blockchain interactions. It supports both MetaMask and WalletConnect logins, making it ideal for applications that require user authentication and blockchain transactions. 
+
+This enables traditional businesses to integrate smoothly with Web3, and combines essential blockchain operations all into one package. The SDK saves time and resources, and empowers developers to build applications that integrate business logic without unnecessary complexity.
+
+The SDK offers a range of NFT and RWA operations, including:
+- Deploying smart contracts
+- Minting NFTs/RWAs
+- Transferring assets
+- Supporting multiple sales modes, such as fixed-price listings, discounted sales, timed auctions, and lazy mints
+
+These features allow developers to create decentralized wallets, launch NFT/RWA trading markets with a wide range of sales models, build membership systems, and engage with the evolving RWA ecosystem.
+
+## What's next?
+This SDK release marks the first step in making Uptick’s full range of services available to developers. 
+
+Next, we’ll deliver Uptick Services via cloud APIs, rolling out the service layer through iterative releases to simplify Web3 business application development for traditional developers.
+
+
 
 ## Installing the SDK
 
