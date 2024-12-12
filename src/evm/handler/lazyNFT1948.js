@@ -12,7 +12,7 @@ import {
 import { utils } from "ethers";
 
 const base = require('./base');
-
+const Web3 = require('web3');
 //xxl todo get from .evn
 let contractAddress = "0xF4FD5200f7fFa79E910FdFa22549fCEB3a530206"
 let contractAddressPlatform = ""
@@ -24,6 +24,12 @@ export function setContractAddress(address) {
     }
    
 }
+export function stringToBytes32(str){
+    let web3 = new Web3();
+    const padded = web3.utils.padLeft(web3.utils.asciiToHex(str), 32); //
+    return padded;
+}
+
 
 export async function deploy(name, metadataUrl,lazySignAddress) {
  
@@ -71,7 +77,7 @@ export async function deploy(name, metadataUrl,lazySignAddress) {
 
 
 
-export async function lazyMint( toAddress,tokenId,baseurl,payAddress,payAmount,creatorFee,signature,fee) {
+export async function lazyMint( toAddress,tokenId,baseurl,payAddress,payAmount,creatorFee,signature,data,fee) {
      const account = await base.getAccounts();
     const fromAddress = await account.getAddress();
 
@@ -87,13 +93,13 @@ export async function lazyMint( toAddress,tokenId,baseurl,payAddress,payAmount,c
 		console.log("gasSetting 1155", gasSetting);
 		
 		let result = await contract.lazyMint(
-		    toAddress, tokenId, baseurl,payAddress, payAmount,creatorFee,signature,
+		    toAddress, tokenId, baseurl,payAddress, payAmount,creatorFee,signature,stringToBytes32(data),
 		    { value:fee,gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
 		);
 		return result;
 		
 	}else{
-		  let data= contract.methods.lazyMint(toAddress, tokenId, baseurl,payAddress, payAmount,creatorFee,signature).encodeABI();
+		  let data= contract.methods.lazyMint(toAddress, tokenId, baseurl,payAddress, payAmount,creatorFee,signature,stringToBytes32(data)).encodeABI();
 		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,payAmount);
 		return result;
 		 

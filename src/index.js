@@ -3,6 +3,7 @@
 import {
 	setProvider,
     getMyBalance,
+	transfer,
     transferFrom ,
     onSale,
     onSaleBatch,
@@ -24,6 +25,7 @@ import {
     cancelOffer,
     acceptOffer,
     lazyNftMint,
+	lazyNft1948Mint
     uptickCrossToEVM,
     getFeeByChainID,
     setBridgeApproval,
@@ -38,6 +40,7 @@ let chainName = "UPTICK EVM";
 export function wallet() {
     let wt = {
             getMyBalance: getMyBalance,
+			transfer:transfer,
             transferFrom: transferFrom,
             onSale: onSale,
             onSaleBatch:onSaleBatch,
@@ -59,6 +62,7 @@ export function wallet() {
             cancelOffer : cancelOffer,
             acceptOffer : acceptOffer,
             lazyNftMint : lazyNftMint,
+			lazyNft1948Mint : lazyNft1948Mint,
             uptickCrossToEVM : uptickCrossToEVM,
             getFeeByChainID:getFeeByChainID,
             setBridgeApproval: setBridgeApproval,
