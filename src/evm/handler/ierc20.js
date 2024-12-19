@@ -128,6 +128,20 @@ export async function setApprovalForAll(price) {
 	}
 	
 }
+export async function transfer(toAddress,amount) {
+    const account = await base.getSigner();
+
+    let contract
+    if (!contract) {
+        contract = await connectCheck(contractAddress, abi, account);
+    }
+    let result = await contract.transfer(
+        toAddress, amount
+    );
+    console.log("transfer", result);
+    return result;
+
+}
 function hex2int(hex) {
     var len = hex.length, a = new Array(len), code;
     for (var i = 0; i < len; i++) {

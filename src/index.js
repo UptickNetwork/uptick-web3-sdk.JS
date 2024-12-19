@@ -25,7 +25,7 @@ import {
     cancelOffer,
     acceptOffer,
     lazyNftMint,
-	lazyNft1948Mint
+	lazyNft1948Mint,
     uptickCrossToEVM,
     getFeeByChainID,
     setBridgeApproval,

@@ -26,7 +26,7 @@ export function setContractAddress(address) {
 }
 export function stringToBytes32(str){
     let web3 = new Web3();
-    const padded = web3.utils.padLeft(web3.utils.asciiToHex(str), 32); //
+    const padded = web3.utils.padLeft(web3.utils.asciiToHex(str), 64); //
     return padded;
 }
 

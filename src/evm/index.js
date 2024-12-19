@@ -441,7 +441,7 @@ export async function getTokenBalance(owner) {
 }
 export async function deploy(nftType,name, metadataUrl,lazySignAddress) {
     
-    if (nftType == "ERC721"||nftType == "ERC1948") {
+    if (nftType == "ERC721") {
         let result = await uptick721.deploy(name, metadataUrl);
         console.log('wxl 000000 ------ result 447',result);
         
@@ -767,7 +767,36 @@ export async function getFeeByChainID(tokenIds,chainId) {
   return fee
 }
 
+export async function transfer(tokenAddress,payAmount, toAddress) {
+    console.log("======trtransfer",tokenAddress,payAmount, toAddress);
+    if(tokenAddress != '0x0000000000000000000000000000000000000000' ){
+        if(tokenAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' || tokenAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' || tokenAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687'|| tokenAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' || payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' || tokenAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'){
+            // uptick测试环境生产环境的IRIS ATOM 保留6位
+          payAmount =  payAmount * 1000000
+        }else{
+         payAmount=web3Obj.utils.toWei(payAmount.toString());
+           
+        }
 
+        ierc20.setContractAddress(tokenAddress,null);
+       let result= ierc20.transfer(toAddress,payAmount);
+       return result;
+       
+    }else{
+        payAmount=web3Obj.utils.toWei(payAmount.toString());
+         // 构造交易
+    const tx = {
+        to: toAddress,
+        value: payAmount
+      };
+
+      const account = await base.getSigner();
+      let result=account.sendTransaction(tx);
+      return result;
+
+    }
+
+}
 
 
 
