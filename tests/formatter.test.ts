@@ -1,5 +1,5 @@
 
-import * as fm from '../index'
+import * as fm from '../src/index'
 
 const TIMEOUT = 30000
 
@@ -9,7 +9,7 @@ describe('formatter test', function () {
     }, TIMEOUT)
 
     it('enum_test', async () => {
-        fm.initMetaMask("https://json-rpc.uptick.network",0x75)
+        fm.init("https://json-rpc.uptick.network",0x75)
         console.log("闪电贷")
 
     }, TIMEOUT)

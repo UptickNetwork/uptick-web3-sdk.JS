@@ -1,8 +1,8 @@
 import {
     connect,
-	connectCheck,
-	wallectConnectSendTransaction,
-	isWalletConnect
+    connectCheck,
+    wallectConnectSendTransaction,
+    isWalletConnect
 } from "./common";
 
 import {
@@ -11,19 +11,19 @@ import {
 
 const base = require('./base');
 
-//xxl todo get from .evn
-let contractAddress,contractAddressPlatform;
+
+let contractAddress, contractAddressPlatform;
 
 
-export function setContractAddress(token20Address,platformAddress) {
+export function setContractAddress(token20Address, platformAddress) {
 
-    if(token20Address) {
+    if (token20Address) {
         contractAddress = token20Address;
     }
-    if(platformAddress) {
+    if (platformAddress) {
         contractAddressPlatform = platformAddress;
     }
-    
+
 }
 
 // export async function mint(tokenId, memo) {
@@ -55,9 +55,7 @@ export async function getTokenBalance(owner) {
     const account = await base.getSigner();
 
 
-
     let contract
-    console.log("getTokenBalance --- 1111",contractAddress);
     if (!contract) {
         contract = await connectCheck(contractAddress, abi, account);
     }
@@ -66,12 +64,12 @@ export async function getTokenBalance(owner) {
         owner
     );
     let balance = result._hex.slice(2)
-    if(contractAddress == '0xbbd60b4d3764974a9ed68eeaa4513ad1826f4c6b' || contractAddress == '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' || contractAddress =='0xa8178660c2534f5d2074a4a9d269e9408963e649' || contractAddress =='0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d' ){
-        result=hex2int(balance)/1000000000000000000
-    }else{
-        result=hex2int(balance)/1000000
+    if (contractAddress == '0xbbd60b4d3764974a9ed68eeaa4513ad1826f4c6b' || contractAddress == '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' || contractAddress == '0xa8178660c2534f5d2074a4a9d269e9408963e649' || contractAddress == '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d') {
+        result = hex2int(balance) / 1000000000000000000
+    } else {
+        result = hex2int(balance) / 1000000
     }
-   
+
     return result;
 
 
@@ -91,12 +89,11 @@ export async function isApprovedForAll() {
     let result = await contract.allowance(
         fromAddress, contractAddressPlatform
     );
-    console.log("isApprovedForAll", result);
     return result;
 }
 
 export async function setApprovalForAll(price) {
-   
+
     const account = await base.getSigner();
     // const fromAddress = await account.getAddress();
     const json = localStorage.getItem("key_user");
@@ -107,28 +104,27 @@ export async function setApprovalForAll(price) {
     if (!contract) {
         contract = await connect(contractAddress, abi, account);
     }
-    
-	
-	
-	let hasWalletConnect = isWalletConnect();
-	if(!hasWalletConnect){
-		let gasSetting = await base.getGasPriceAndGasLimit();
-    let result = await contract.approve(
-        contractAddressPlatform,price,
-        { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
-    );
-	
-	console.log("setApprovalForAll", result);
-	return result;
-	}else{
-		  let data= contract.methods.approve(  contractAddressPlatform,price).encodeABI()
-		let result = await wallectConnectSendTransaction(fromAddress,contractAddress,data,"0");
-		return result;
-		 
-	}
-	
+
+
+    let hasWalletConnect = isWalletConnect();
+    if (!hasWalletConnect) {
+        let gasSetting = await base.getGasPriceAndGasLimit();
+        let result = await contract.approve(
+            contractAddressPlatform, price,
+            {gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit}
+        );
+
+        return result;
+    } else {
+        let data = contract.methods.approve(contractAddressPlatform, price).encodeABI()
+        let result = await wallectConnectSendTransaction(fromAddress, contractAddress, data, "0");
+        return result;
+
+    }
+
 }
-export async function transfer(toAddress,amount) {
+
+export async function transfer(toAddress, amount) {
     const account = await base.getSigner();
 
     let contract
@@ -138,23 +134,23 @@ export async function transfer(toAddress,amount) {
     let result = await contract.transfer(
         toAddress, amount
     );
-    console.log("transfer", result);
     return result;
 
 }
+
 function hex2int(hex) {
     var len = hex.length, a = new Array(len), code;
     for (var i = 0; i < len; i++) {
         code = hex.charCodeAt(i);
-        if (48<=code && code < 58) {
+        if (48 <= code && code < 58) {
             code -= 48;
         } else {
             code = (code & 0xdf) - 65 + 10;
         }
         a[i] = code;
     }
-     
-    return a.reduce(function(acc, c) {
+
+    return a.reduce(function (acc, c) {
         acc = 16 * acc + c;
         return acc;
     }, 0);
