@@ -97,14 +97,17 @@ export function checkExitChain(chainId) {
             }).catch((error) => {
                 // 切换失败后的逻辑
                 console.error('Chain change failed', error);
+				return false;
             });
         }).catch((error) => {
             // 用户拒绝授权访问钱包或发生其他错误
             console.error('change error', error);
+			return false;
         });
     } else {
         // MetaMask未安装
         console.error('Install MetaMask');
+		return false;
     }
 
 }
