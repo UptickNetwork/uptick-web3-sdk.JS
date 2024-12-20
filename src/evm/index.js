@@ -19,7 +19,7 @@ const erc1155Offer = require('./handler/erc1155Offer.js');
 const bridge = require('./handler/bridge.js');
 
 
-export async function init(chainId) {
+export async function init(chainId,rpc,chainName,symbol,blockExplorerUrls) {
     // 判断是否在当前链
     let currentChainID = window.ethereum.networkVersion
 
@@ -36,9 +36,9 @@ export async function init(chainId) {
     }
 }
 
-export function setProvider(rpc, chainID) {
+export function setProvider(rpc,chainID,chainName,symbol,blockExplorerUrls) {
     base.setProvider(rpc);
-    init(chainID)
+    init(chainID,rpc,chainName,symbol,blockExplorerUrls)
 }
 
 async function handleAccountsChanged(accounts) {
