@@ -72,9 +72,29 @@ async function getAllChainIds() {
 
 // 检查是否包含特定的chainID
 export async function containsChainId(targetChainId) {
-    const allChainIds = await getAllChainIds();
-    return allChainIds.includes(targetChainId);
+ //    const allChainIds = await getAllChainIds();
+ //    return allChainIds.includes(targetChainId);
+	
+	try {
+	  // 尝试切换到指定链
+	  await ethereum.request({
+	    method: 'wallet_switchEthereumChain',
+	    params: [{ chainId: targetChainId }],
+	  });
+	  console.log(`链 ID ${targetChainId} 已添加到 MetaMask`);
+	  return true;
+	} catch (error) {
+	  if (error.code === 4902) {
+	    console.log(`链 ID ${targetChainId} 未添加到 MetaMask`);
+		return false;
+	  } else {
+	    console.error("发生错误:", error);
+		return false;
+	  }
+	}
+	
 }
+
 
 
 export function checkExitChain(chainId) {
