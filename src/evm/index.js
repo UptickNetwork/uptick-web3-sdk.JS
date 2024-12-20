@@ -30,7 +30,6 @@ export async function init(chainId,rpc,chainName,symbol,blockExplorerUrls) {
         if (result) {
             base.checkExitChain(chainId)
         } else {
-           
 			 base.addNetwork(chainId,chainName,symbol,rpc,blockExplorerUrls);
         }
         window.ethereum.on('accountsChanged', handleAccountsChanged);
