@@ -70,9 +70,9 @@ export function wallet() {
     return wt;
 };
 
-export function init(rpc,chainId,chainName,symbol,blockExplorerUrls) {
+export function init(rpc,chainRpc,chainId,chainName,symbol,blockExplorerUrls) {
  
-	setProvider(rpc,chainId,chainName,symbol,blockExplorerUrls)
+	setProvider(rpc,chainRpc,chainId,chainName,symbol,blockExplorerUrls)
     
 	return {wallet:wallet()}
 }

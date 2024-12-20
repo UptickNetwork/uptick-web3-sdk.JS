@@ -19,7 +19,7 @@ const erc1155Offer = require('./handler/erc1155Offer.js');
 const bridge = require('./handler/bridge.js');
 
 
-export async function init(chainId,rpc,chainName,symbol,blockExplorerUrls) {
+export async function init(chainRpc,chainId,chainName,symbol,blockExplorerUrls) {
     // 判断是否在当前链
     let currentChainID = window.ethereum.networkVersion
 
@@ -30,15 +30,15 @@ export async function init(chainId,rpc,chainName,symbol,blockExplorerUrls) {
         if (result) {
             base.checkExitChain(chainId)
         } else {
-			 base.addNetwork(chainId,chainName,symbol,rpc,blockExplorerUrls);
+			 base.addNetwork(chainId,chainName,symbol,chainRpc,blockExplorerUrls);
         }
         window.ethereum.on('accountsChanged', handleAccountsChanged);
     }
 }
 
-export function setProvider(rpc,chainID,chainName,symbol,blockExplorerUrls) {
+export function setProvider(rpc,chainRpc,chainID,chainName,symbol,blockExplorerUrls) {
     base.setProvider(rpc);
-    init(chainID,rpc,chainName,symbol,blockExplorerUrls)
+    init(chainRpc,chainID,chainName,symbol,blockExplorerUrls)
 }
 
 async function handleAccountsChanged(accounts) {
@@ -84,9 +84,9 @@ const checkmetamaskconnect = async () => {
         web3 = new Web3(window.ethereum);
         try {
             localStorage.setItem("LogIn", true);
-            await window.ethereum.enable();
-            await window.ethereum.eth_requestAccounts();
-
+            // await window.ethereum.enable();
+            // await window.ethereum.eth_requestAccounts();
+  window.ethereum.request({ method: 'eth_requestAccounts' });
         } catch (error) {
             console.log(error);
         }
