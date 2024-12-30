@@ -10,7 +10,6 @@ describe('formatter test', function () {
 
     it('enum_test', async () => {
         fm.init("https://json-rpc.uptick.network",0x75)
-        console.log("闪电贷")
 
     }, TIMEOUT)
 
