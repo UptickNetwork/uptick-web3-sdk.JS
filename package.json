@@ -1,6 +1,6 @@
 {
-  "name": "@xyyz1207/uptick-web3-sdk",
-    "version": "1.2.4",
+  "name": "@uptickjs/uptick-web3-sdk",
+    "version": "1.0.6",
   "author": "Uptick Dev Team",
   "description": "Uptick SDK",
   "private": false,
