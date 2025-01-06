@@ -1,16 +1,17 @@
 const { utils } = require('ethers');
 
 const Web3 = require('web3');
+import { getMaskmaskProvider } from './evm/handler/base';
 
 export const getMatamaskWeb3 = async () => {
   var web3;
-  if (window.ethereum) {
+  let ethereum = await getMaskmaskProvider();
+  if (ethereum) {
     // Modern dapp browsers
-    web3 = new Web3(window.ethereum);
+    web3 = new Web3(ethereum);
     try {
-     
       // await window.ethereum.eth_requestAccounts();
-	  window.ethereum.request({ method: 'eth_requestAccounts' });
+      ethereum.request({ method: 'eth_requestAccounts' });
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +29,8 @@ export const isMatamasklogin = async () => {
 
 async function checkConnection() {
   try {
-    const accounts = await window.ethereum.request({
+    let ethereum = await getMaskmaskProvider();
+    const accounts = await ethereum.request({
       method: 'eth_accounts',
     });
     console.log('connect success');
