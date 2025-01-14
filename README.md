@@ -1,38 +1,56 @@
 # uptick-web3-sdk
 
 #### Essential Web3 functions rolled into a single package
-Uptick Web3 SDK is a core element of these services. It consolidates essential Web3 functions into a single package, enabling developers to efficiently create business-specific applications using Uptick infrastructure. This approach allows developers to focus on business logic without needing to manage general-purpose modules or possess deep blockchain expertise.
+
+Uptick Web3 SDK is a core element of these services. It consolidates essential Web3 functions into a single package,
+enabling developers to efficiently create business-specific applications using Uptick infrastructure. This approach
+allows developers to focus on business logic without needing to manage general-purpose modules or possess deep
+blockchain expertise.
 
 #### Supports Vue Development Framework with React Native SDK coming soon
-Uptick Web3 SDK is a JavaScript SDK that currently supports the Vue development framework. React and React Native developers can refer to the contract files and calling methods within the SDK to assemble the signature manually. The React Native version of the SDK will be launched soon. SDKs for other programming languages are also in development, so stay tuned.
+
+Uptick Web3 SDK is a JavaScript SDK that currently supports the Vue development framework. React and React Native
+developers can refer to the contract files and calling methods within the SDK to assemble the signature manually. The
+React Native version of the SDK will be launched soon. SDKs for other programming languages are also in development, so
+stay tuned.
 
 #### What Can Developers Do with the Uptick Web3 SDK？
-The Uptick Web3 SDK is a powerful tool for Vue projects, simplifying user connections to decentralized applications (DApps) and streamlining blockchain interactions. It supports both MetaMask and WalletConnect logins, making it ideal for applications that require user authentication and blockchain transactions. 
 
-This enables traditional businesses to integrate smoothly with Web3, and combines essential blockchain operations all into one package. The SDK saves time and resources, and empowers developers to build applications that integrate business logic without unnecessary complexity.
+The Uptick Web3 SDK is a powerful tool for Vue projects, simplifying user connections to decentralized applications (
+DApps) and streamlining blockchain interactions. It supports both MetaMask and WalletConnect logins, making it ideal for
+applications that require user authentication and blockchain transactions.
+
+This enables traditional businesses to integrate smoothly with Web3, and combines essential blockchain operations all
+into one package. The SDK saves time and resources, and empowers developers to build applications that integrate
+business logic without unnecessary complexity.
 
 The SDK offers a range of NFT and RWA operations, including:
+
 - Deploying smart contracts
 - Minting NFTs/RWAs
 - Transferring assets
 - Supporting multiple sales modes, such as fixed-price listings, discounted sales, timed auctions, and lazy mints
 
-These features allow developers to create decentralized wallets, launch NFT/RWA trading markets with a wide range of sales models, build membership systems, and engage with the evolving RWA ecosystem.
+These features allow developers to create decentralized wallets, launch NFT/RWA trading markets with a wide range of
+sales models, build membership systems, and engage with the evolving RWA ecosystem.
 
 #### What's next?
-This SDK release marks the first step in making Uptick’s full range of services available to developers. 
 
-Next, we’ll deliver Uptick Services via cloud APIs, rolling out the service layer through iterative releases to simplify Web3 business application development for traditional developers.
+This SDK release marks the first step in making Uptick’s full range of services available to developers.
 
-
+Next, we’ll deliver Uptick Services via cloud APIs, rolling out the service layer through iterative releases to simplify
+Web3 business application development for traditional developers.
 
 ## Installing the SDK
 
 To install with Yarn, run:
+
 ```
 yarn add @uptickjs/uptick-web3-sdk
 ```
+
 To install with NPM, run:
+
 ```
 npm install @uptickjs/uptick-web3-sdk
 ```
@@ -123,29 +141,37 @@ export async function initProvider(){
 ## Method introduction
 
 #### Get user information, get the currently linked wallet address
+
 ```
 getAccountInfo()
 ```
+
 #### Convert Evm address to Uptick address
+
 ```
 getUptickAddress()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 evmAddress | String | User address
 
 #### Get balance
+
 ```
 getTokenBalance()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 owner | String | User address
 
 #### Create a contract
+
 ```
 deploy()
 ```
+
 Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
 nftType | String | true| nft type
@@ -154,9 +180,11 @@ metadataUrl | String | false | metadata information
 lazySignAddress | String | false | signature address, used to verify signature when minting assets
 
 #### Mint NFTs
+
 ```
 mintNft()
 ```
+
 Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
 nftType | String | true| nft type
@@ -167,9 +195,11 @@ royaltyPercentage | String | true | Share ratio
 amountValue | Number | false | Quantity
 
 #### Lazy mint NFTs
+
 ```
 lazyNftMint()
 ```
+
 Params | Parameter type | Require | Parameter description
 :---: | :---: | :---: | :---:
 toAddress | String | true | Receiving address
@@ -180,20 +210,23 @@ payAmount | Number | true | Payment amount
 creatorFee | Number | true | Payment fee
 signature | String | true | Signature information
 
-####  Set the contract address
+#### Set the contract address
+
 ```
 setContractAddress()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
 platformAddress | String | transaction contract address
 
-
 #### NFT Transfer
+
 ```
 transferFrom()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -202,9 +235,11 @@ nftId | String | nftId
 amountValue | Number | transfer amount
 
 #### NFT Listing
+
 ```
 onSale()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -213,12 +248,14 @@ nftid | String | nftid
 value | String | Listing price
 fee | Number | Handling fee
 amount | Number | Listing quantity
-payAddress | String | The token contract address for selling your NFT 
+payAddress | String | The token contract address for selling your NFT
 
 #### NFT Listing in Batches
+
 ```
 onSaleBatch()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -230,9 +267,11 @@ amounts | Array | Listing quantity
 payAddress | Array | The token contract address for selling your NFT
 
 #### Discounted Sales
+
 ```
 couponOnSale()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -246,9 +285,11 @@ amount | Number | Listing quantity
 payAddress | String | The token contract address for selling your NFT
 
 #### Timed-auction
+
 ```
 auction_onsale()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -264,9 +305,11 @@ amount | Number | listing quantity
 payAddress | String | The token contract address for selling your NFT
 
 #### Place a bid in auction
+
 ```
 auction_placeBid()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -277,9 +320,11 @@ payAddress | String | The token contract address for bidding
 owner | String | Bidder address
 
 #### NFT Delisting
+
 ```
 offSale()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -287,9 +332,11 @@ nftAddress | String | nft contract address
 nftid | String | nftid
 
 #### NFT Delisting in Batches
+
 ```
 offSaleBatch()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 nftType | String | nft type
@@ -297,9 +344,11 @@ nftAddress | String | nft contract address
 nftids | Array | nftid
 
 #### Withdraw an auction
+
 ```
 auction_end()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -308,9 +357,11 @@ nftid | String | nftid
 owner | String | ERC1155 type, requires the address of the owner
 
 #### NFT Purchasing
+
 ```
 placeOrder()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -324,9 +375,11 @@ couponLink | String | couponLink, fill in ‘0’ if none
 payAddress | String | The token contract address for purchasing
 
 #### Place an Offer
+
 ```
 createOffer()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
@@ -339,18 +392,22 @@ expiry | String | Offer validity period
 fee | Number | Handling fee
 
 #### Withdraw an Offer
+
 ```
 cancelOffer()
 ```
+
 Params | Parameter type | Parameter description
 :---: | :---: | :---:
 nftType | String | nft type
 offerNumber | String | Offer number (random number)
 
 #### Accept an Offer
+
 ```
 acceptOffer()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 nftType | String | nft type
@@ -360,29 +417,32 @@ nftid | String | nftid
 offerPlatformAddress | String | offer contract address
 
 #### Authorize cross-chain contracts
+
 ```
 setBridgeApproval()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 nftType | String | nft type
 
-
 #### Query cross-chain transfer fees
+
 ```
 getFeeByChainID()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 tokenIds  | Array | tokenid
 chainId  | Number | chainid
 
-
-#### Support NFT cross-chain transfer, between Uptick with Polygon\Arbitrum\BSC 
+#### Support NFT cross-chain transfer, between Uptick with Polygon\Arbitrum\BSC
 
 ```
 uptickCrossToEVM()
 ```
+
 Params     |  Parameter type  | Parameter description
 :---: | :---: | :---: 
 srcChainName | String | Source chain name
@@ -390,8 +450,6 @@ destinationChainId | Number | Target chain chainid
 toAddress | String | Receiving address
 metadate | String | Metadate information
 offerPlatformAddress | String | Offer contract address
-
-
 
 ## Problem Reporting
 
