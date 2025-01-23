@@ -66,8 +66,8 @@ let chainId=process.env.VUE_APP_ADD_NETWORK_CHAIN_ID;
 
 let rpc=process.env.VUE_APP_ADD_NETWORK_CHAIN_UPC_URL;
 
-
 let wallet=metaMaskInit(rpc,chainId)
+
 Vue.prototype.$wallet = wallet.wallet;
 ```
 
@@ -113,8 +113,7 @@ export async function initProvider(){
 		  });
 		  // accounts changed
 		  provider.on('accountsChanged', (accounts) => {
-		    
-                
+		     
 		  });
 		  // session established
 		  provider.on('connect', (result) => {
@@ -135,7 +134,6 @@ export async function initProvider(){
 		 
 	 }
 	 
-
 ```
 
 ## Method introduction
