@@ -378,6 +378,7 @@ tokenIds  | Array | tokenid
 chainId  | Number | chainid
 
 
+
 #### Support NFT cross-chain transfer, between Uptick with Polygon\Arbitrum\BSC 
 
 ```
