@@ -397,3 +397,4 @@ offerPlatformAddress | String | Offer contract address
 ## Problem Reporting
 
 https://github.com/UptickNetwork/uptick-web3-sdk/issues
+
