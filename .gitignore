@@ -15,16 +15,12 @@
 # vendor/
 
 # idea
-.idea
+.idea/
 *.xml
-
 # build
 build
-
-
 /node_modules
 .DS_Store
 /dist
-
 #vscode
 .vscode/
