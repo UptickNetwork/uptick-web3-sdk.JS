@@ -11,7 +11,7 @@ export async function connect(address, abi, signer) {
   let hasWalletConnect = isWalletConnect();
   if (hasWalletConnect) {
     let provider = window.walletProvider;
-    let accountsPro = await provider.enable();
+    // let accountsPro = await provider.enable();
     let web3 = new Web3(provider);
     let contract = new web3.eth.Contract(abi, address, {
       from: await signer.getAddress(), // default from address
@@ -29,7 +29,7 @@ export async function initProofContract(abi) {
   let hasWalletConnect = isWalletConnect();
   if (hasWalletConnect) {
     let provider = window.walletProvider;
-    let accountsPro = await provider.enable();
+    // let accountsPro = await provider.enable();
     //  Create Web3
     web3 = new Web3(provider);
   } else {
