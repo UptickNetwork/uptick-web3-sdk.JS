@@ -442,3 +442,4 @@ uptickCrossToEVM()
 ## Problem Reporting
 
 https://github.com/UptickNetwork/uptick-web3-sdk/issues
+
