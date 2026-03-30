@@ -56,7 +56,8 @@ export async function wallectConnectSendTransaction(
   fromAddress,
   contractAddress,
   data,
-  price
+  price,
+  gasLimitOverride
 ) {
   let provider = window.walletProvider;
   await provider.enable();
@@ -68,7 +69,7 @@ export async function wallectConnectSendTransaction(
       data: data,
       value: price,
       gasPrice: gasSetting.gasPrice,
-      gasLimit: gasSetting.gasLimit,
+      gasLimit: gasLimitOverride || gasSetting.gasLimit,
     },
   ];
   let result = {};

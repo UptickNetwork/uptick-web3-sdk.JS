@@ -8,7 +8,17 @@ import {
     abi
 } from "../abi/ERC721Platform.json";
 
+import { ethers } from 'ethers';
+
 const base = require('./base');
+
+/** 在链上估算结果上增加缓冲，降低 Out of gas 概率（基点，2000 = 20%） */
+const ON_SALE_BATCH_GAS_BUFFER_BPS = 2000;
+
+function applyGasBuffer(estimated) {
+    const bn = ethers.BigNumber.from(estimated);
+    return bn.mul(10000 + ON_SALE_BATCH_GAS_BUFFER_BPS).div(10000);
+}
 
 
 let contractAddress = "0xd3e379f75d08ba91f632b363f021ceda01d94984"
@@ -95,14 +105,37 @@ export async function onSaleBatch(nftAddresss, nftids, values, fee, payAddresss)
     let hasWalletConnect = isWalletConnect();
     if (!hasWalletConnect) {
         let gasSetting = await base.getGasPriceAndGasLimit();
+        let gasLimit = ethers.BigNumber.from(gasSetting.gasLimit);
+        try {
+            const estimated = await contract.estimateGas.onSaleBatch(
+                nftAddresss,
+                nftids,
+                values,
+                payAddresss,
+                { value: fee }
+            );
+            gasLimit = applyGasBuffer(estimated);
+        } catch (e) {
+            console.warn('onSaleBatch estimateGas failed, using fallback gasLimit', e);
+        }
         let rep = await contract.onSaleBatch(nftAddresss, nftids, values, payAddresss, {
-            value: fee, gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit
+            value: fee, gasPrice: gasSetting.gasPrice, gasLimit
         });
         return rep;
 
     } else {
         let data = contract.methods.onSaleBatch(nftAddresss, nftids, values, payAddresss).encodeABI()
-        let result = await wallectConnectSendTransaction(fromAddress, contractAddress, data, fee);
+        let gasSetting = await base.getGasPriceAndGasLimit();
+        let gasLimitOverride = gasSetting.gasLimit;
+        try {
+            const estimated = await contract.methods
+                .onSaleBatch(nftAddresss, nftids, values, payAddresss)
+                .estimateGas({ from: fromAddress, value: fee });
+            gasLimitOverride = applyGasBuffer(estimated).toHexString();
+        } catch (e) {
+            console.warn('onSaleBatch estimateGas (WalletConnect) failed, using fallback gasLimit', e);
+        }
+        let result = await wallectConnectSendTransaction(fromAddress, contractAddress, data, fee, gasLimitOverride);
         return result;
 
     }
