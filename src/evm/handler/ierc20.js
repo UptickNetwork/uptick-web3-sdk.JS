@@ -48,7 +48,6 @@ export function setContractAddress(token20Address, platformAddress) {
 // }
 
 export async function getTokenBalance(owner) {
-    debugger
     // const account = await base.getAccounts();
 
 
@@ -77,10 +76,7 @@ export async function getTokenBalance(owner) {
 
 export async function isApprovedForAll() {
     const account = await base.getSigner();
-    // const fromAddress = await account.getAddress();
-    const json = localStorage.getItem("key_user");
-    let address = JSON.parse(json);
-    const fromAddress = address.did
+    const fromAddress = await account.getAddress();
 
     let contract
     if (!contract) {
@@ -95,10 +91,7 @@ export async function isApprovedForAll() {
 export async function setApprovalForAll(price) {
 
     const account = await base.getSigner();
-    // const fromAddress = await account.getAddress();
-    const json = localStorage.getItem("key_user");
-    let address = JSON.parse(json);
-    const fromAddress = address.did
+    const fromAddress = await account.getAddress();
 
     let contract
     if (!contract) {

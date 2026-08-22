@@ -3,7 +3,6 @@ import {
   wallectConnectSendTransaction,
   isWalletConnect,
 } from './common';
-import WalletConnectProvider from '@walletconnect/web3-provider';
 import { abi } from '../abi/ERC1155Platform.json';
 import { utils } from 'ethers';
 import Web3 from 'web3';

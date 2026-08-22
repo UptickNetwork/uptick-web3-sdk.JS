@@ -12,7 +12,6 @@ const base = require('./base');
 
 
 let uptickContractAddress = "0xfe800a21a5f97fdc520320e215c3ae1e6c6239c7"
-let polygonContractAddress = "0xec786d399fd357e4dc00abe4670c2bc3bf1efdae"
 
 
 export function setContractAddress(platformAddress) {

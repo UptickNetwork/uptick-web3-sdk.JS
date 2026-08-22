@@ -121,9 +121,7 @@ export async function mintNft(toAddress, tokenId, baseurl, mintByCreatorFee) {
 export async function isApprovedForAll() {
 
     const account = await base.getSigner();
-    const json = localStorage.getItem("key_user");
-    let address = JSON.parse(json);
-    const fromAddress = address.did
+    const fromAddress = await account.getAddress();
 
     let contract
     if (!contract) {

@@ -95,3 +95,58 @@ export function isWalletConnect() {
   }
   return isWalletConnect;
 }
+
+const ADDRESS_RE = /^0x[0-9a-fA-F]{40}$/;
+
+// Validate an EVM address. Throws before any chain interaction so a malformed
+// or attacker-controlled value can never be forwarded to a contract call.
+export function validateAddress(address, label = 'address') {
+  if (typeof address !== 'string' || !ADDRESS_RE.test(address)) {
+    throw new Error(`[uptick-sdk] Invalid ${label}: ${String(address)}`);
+  }
+  return address;
+}
+
+// Validate a numeric amount/price. Rejects NaN, empty and non-numeric garbage.
+export function validateAmount(amount, label = 'amount') {
+  if (
+    amount === undefined ||
+    amount === null ||
+    amount === '' ||
+    isNaN(Number(amount))
+  ) {
+    throw new Error(`[uptick-sdk] Invalid ${label}: ${String(amount)}`);
+  }
+  return amount;
+}
+
+// Validate an EIP-712 / personal_sign signature shape before sending on-chain.
+export function validateSignature(signature, label = 'signature') {
+  if (typeof signature !== 'string' || !/^0x[0-9a-fA-F]*$/.test(signature)) {
+    throw new Error(`[uptick-sdk] Invalid ${label}: ${String(signature)}`);
+  }
+  return signature;
+}
+
+// Read the cached login identity, failing loudly instead of crashing on a
+// missing/corrupted localStorage entry.
+export function requireLogin() {
+  const raw = localStorage.getItem('key_user');
+  if (!raw) {
+    throw new Error('[uptick-sdk] Not logged in: missing key_user in localStorage');
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    throw new Error('[uptick-sdk] Corrupted key_user in localStorage');
+  }
+  if (
+    !parsed ||
+    typeof parsed.did !== 'string' ||
+    !ADDRESS_RE.test(parsed.did)
+  ) {
+    throw new Error('[uptick-sdk] Invalid key_user.did in localStorage');
+  }
+  return parsed;
+}

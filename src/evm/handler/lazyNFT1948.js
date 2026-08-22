@@ -90,7 +90,10 @@ export async function lazyMint(toAddress, tokenId, baseurl, payAddress, payAmoun
 
     } else {
         let data = contract.methods.lazyMint(toAddress, tokenId, baseurl, payAddress, payAmount, creatorFee, signature, stringToBytes32(data)).encodeABI();
-        let result = await wallectConnectSendTransaction(fromAddress, contractAddress, data, payAmount);
+        // IMPORTANT: the purchase price (payAmount) is settled via the ERC20
+        // allowance set earlier in the flow; only the native `fee` is sent as
+        // the transaction value. Sending payAmount here would double-charge.
+        let result = await wallectConnectSendTransaction(fromAddress, contractAddress, data, fee);
         return result;
 
     }

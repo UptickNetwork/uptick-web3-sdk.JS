@@ -17,6 +17,7 @@ const ierc20 = require('./handler/ierc20.js');
 const erc721Offer = require('./handler/erc721Offer.js');
 const erc1155Offer = require('./handler/erc1155Offer.js');
 const bridge = require('./handler/bridge.js');
+const common = require('./handler/common');
 import { getMaskmaskProvider } from './handler/base';
 
 export async function init(
@@ -125,6 +126,8 @@ function getDenomName(name, address) {
 }
 
 export async function orderPay(nftType, recipient, nftId, fee, assetId) {
+  common.validateAddress(recipient, 'recipient');
+  common.validateAmount(fee, 'fee');
   fee = web3Obj.utils.toWei(fee.toString());
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Platform.transfer(recipient, nftId, fee);
@@ -144,6 +147,11 @@ export async function onSaleBatch(
   amounts,
   payAddress
 ) {
+  common.validateAddress(payAddress, 'payAddress');
+  if (!Array.isArray(nftAddresss) || nftAddresss.length === 0) {
+    throw new Error('[uptick-sdk] Invalid nftAddresss: must be a non-empty array');
+  }
+  nftAddresss.forEach((a) => common.validateAddress(a, 'nftAddress'));
   let prices = [];
   let payAddresss = [];
   if (
@@ -211,6 +219,10 @@ export async function onSale(
   amount,
   payAddress
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateAmount(value, 'value');
+  common.validateAmount(fee, 'fee');
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
     payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' ||
@@ -279,6 +291,10 @@ export async function couponOnSale(
   amount,
   payAddress
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateAmount(value, 'value');
+  common.validateAmount(reducedPrice, 'reducedPrice');
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
     payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' ||
@@ -335,6 +351,7 @@ export async function couponOnSale(
 }
 
 export async function offSale(nftType, nftAddress, nftid) {
+  common.validateAddress(nftAddress, 'nftAddress');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Platform.offSale(nftAddress, nftid);
     return result;
@@ -350,6 +367,7 @@ export async function offSale(nftType, nftAddress, nftid) {
 }
 
 export async function offSaleBatch(nftType, nftAddress, nftids) {
+  common.validateAddress(nftAddress, 'nftAddress');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Platform.offSaleBatch(nftAddress, nftids);
     return result;
@@ -374,6 +392,11 @@ export async function auction_onsale(
   amount,
   payAddress
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateAmount(startBid, 'startBid');
+  common.validateAmount(fixPrice, 'fixPrice');
+  common.validateAmount(ReserveBid, 'ReserveBid');
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
     payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' ||
@@ -445,6 +468,10 @@ export async function auction_placeBid(
   payAddress,
   owner
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  if (owner) common.validateAddress(owner, 'owner');
+  common.validateAmount(fixPrice, 'fixPrice');
   let fee = 0;
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
@@ -491,6 +518,8 @@ export async function auction_placeBid(
 
 //auction_end
 export async function auction_end(nftType, nftAddress, nftid, owner) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  if (owner) common.validateAddress(owner, 'owner');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Auction.end(nftAddress, nftid);
     return result;
@@ -503,12 +532,14 @@ export async function auction_end(nftType, nftAddress, nftid, owner) {
 //auction_end
 export async function getTokenBalance(owner) {
   // ierc20
+  common.validateAddress(owner, 'owner');
 
   let result = await ierc20.getTokenBalance(owner);
   return result;
 }
 
 export async function deploy(nftType, name, metadataUrl, lazySignAddress) {
+  if (lazySignAddress) common.validateAddress(lazySignAddress, 'lazySignAddress');
   if (nftType == 'ERC721') {
     let result = await uptick721.deploy(name, metadataUrl);
     return result;
@@ -530,6 +561,10 @@ export async function revokeApprovesWithArray(
   value,
   onAssetIds
 ) {
+  if (!Array.isArray(tokenArr) || tokenArr.length === 0) {
+    throw new Error('[uptick-sdk] Invalid tokenArr: must be a non-empty array');
+  }
+  tokenArr.forEach((t) => common.validateAddress(t, 'tokenArr item'));
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Platform.revokeApprovesWithArray(tokenArr);
     return result;
@@ -546,6 +581,7 @@ export async function revokeApprovesWithArray(
 
 export async function transferFrom(nftType, toAddress, nftId, amountValue) {
   // let mint = await uptick721.mint(nftId, memo);
+  common.validateAddress(toAddress, 'toAddress');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let transferFrom = await uptick721.transferFrom(toAddress, nftId);
     return transferFrom;
@@ -567,6 +603,7 @@ export async function mintNft(
   royaltyPercentage,
   amountValue
 ) {
+  common.validateAddress(toAddress, 'toAddress');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let transferFrom = await uptick721.mintNft(
       toAddress,
@@ -596,6 +633,10 @@ export async function lazyNftMint(
   creatorFee,
   signature
 ) {
+  common.validateAddress(toAddress, 'toAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateSignature(signature, 'signature');
+  common.validateAmount(payAmount, 'payAmount');
   let fee = 0;
   if (payAddress == '0x0000000000000000000000000000000000000000') {
     fee = payAmount;
@@ -633,6 +674,10 @@ export async function lazyNft1948Mint(
   signature,
   data
 ) {
+  common.validateAddress(toAddress, 'toAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateSignature(signature, 'signature');
+  common.validateAmount(payAmount, 'payAmount');
   let fee = 0;
   if (payAddress == '0x0000000000000000000000000000000000000000') {
     fee = payAmount;
@@ -663,6 +708,14 @@ export async function lazyNft1948Mint(
 
 // address, platformAddress
 export function setContractAddress(nftType, addressObject) {
+  if (!addressObject || typeof addressObject !== 'object') {
+    throw new Error('[uptick-sdk] Invalid addressObject');
+  }
+  ['address', 'platformAddress', 'token20Address'].forEach((key) => {
+    if (addressObject[key]) {
+      common.validateAddress(addressObject[key], `addressObject.${key}`);
+    }
+  });
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     uptick721.setContractAddress(
       addressObject.address,
@@ -705,6 +758,10 @@ export async function placeOrder(
   couponLink,
   payAddress
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(toAddress, 'toAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateAmount(price, 'price');
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
     payAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' ||
@@ -787,6 +844,10 @@ export async function createOffer(
   expiry,
   fee
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(payAddress, 'payAddress');
+  common.validateAmount(payAmount, 'payAmount');
+  common.validateAmount(fee, 'fee');
   fee = web3Obj.utils.toWei(fee.toString());
   if (
     payAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
@@ -841,6 +902,7 @@ export async function createOffer(
 
 //CancelOffer
 export async function cancelOffer(nftType, offerNumber) {
+  common.validateAmount(offerNumber, 'offerNumber');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let result = await erc721Offer.cancelOffer(offerNumber);
     return result;
@@ -858,6 +920,8 @@ export async function acceptOffer(
   nftId,
   offerPlatformAddress
 ) {
+  common.validateAddress(nftAddress, 'nftAddress');
+  common.validateAddress(offerPlatformAddress, 'offerPlatformAddress');
   if (nftType == 'ERC721' || nftType == 'ERC1948') {
     let setApproval = await uptick721.setApprovTokenid(
       offerPlatformAddress,
@@ -913,6 +977,9 @@ export async function uptickCrossToEVM(
   fee,
   bridgeAddress
 ) {
+  common.validateAddress(toAddress, 'toAddress');
+  if (bridgeAddress) common.validateAddress(bridgeAddress, 'bridgeAddress');
+  common.validateAmount(fee, 'fee');
   fee = web3Obj.utils.toWei(fee.toString());
   let result = await bridge.uptickCrossToEVM(
     srcChainName,
@@ -932,13 +999,16 @@ export async function getFeeByChainID(tokenIds, chainId) {
 }
 
 export async function transfer(tokenAddress, payAmount, toAddress) {
+  common.validateAddress(tokenAddress, 'tokenAddress');
+  common.validateAddress(toAddress, 'toAddress');
+  common.validateAmount(payAmount, 'payAmount');
   if (tokenAddress != '0x0000000000000000000000000000000000000000') {
     if (
       tokenAddress == '0x80b5a32e4f032b2a058b4f29ec95eefeeb87adcd' ||
       tokenAddress == '0xd567b3d7b8fe3c79a1ad8da978812cfc4fa05e75' ||
       tokenAddress == '0x5fd55a1b9fc24967c4db09c513c3ba0dfa7ff687' ||
       tokenAddress == '0xeceeefcee421d8062ef8d6b4d814efe4dc898265' ||
-      payAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' ||
+      tokenAddress == '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359' ||
       tokenAddress == '0xaf88d065e77c8cc2239327c5edb3a432268e5831'
     ) {
       // uptick测试环境生产环境的IRIS ATOM 保留6位

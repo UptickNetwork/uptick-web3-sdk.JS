@@ -15,25 +15,42 @@ export const setProvider = (provider) => {
   web3Obj.setProvider(provider);
 };
 
+let cachedProvider = null;
+let cachedMMSDK = null;
+
 export async function getMaskmaskProvider() {
+  if (cachedProvider) {
+    return cachedProvider;
+  }
   const MMSDK = new MetaMaskSDK({
     shouldShimWeb3: false,
   });
-  let ethereum;
   await MMSDK.init();
-  const accounts = await MMSDK.connect();
+  await MMSDK.connect();
   // You can also access the Ethereum provider object.
-  ethereum = await MMSDK.getProvider();
+  const ethereum = await MMSDK.getProvider();
+  cachedMMSDK = MMSDK;
+  cachedProvider = ethereum;
   return ethereum;
 }
 const fromHexString = (hexString) =>
   new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
 
 export async function getBalance() {
-  // const account = await getAccounts();
   // 根据缓存获取地址
-  const json = localStorage.getItem('key_user');
-  let address = JSON.parse(json);
+  const raw = localStorage.getItem('key_user');
+  if (!raw) {
+    throw new Error('[uptick-sdk] Not logged in: missing key_user in localStorage');
+  }
+  let address;
+  try {
+    address = JSON.parse(raw);
+  } catch (e) {
+    throw new Error('[uptick-sdk] Corrupted key_user in localStorage');
+  }
+  if (!address || typeof address.did !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(address.did)) {
+    throw new Error('[uptick-sdk] Invalid key_user.did in localStorage');
+  }
   let amt = web3Obj.eth.getBalance(address.did);
   return amt;
 }
@@ -173,7 +190,15 @@ export async function addNetwork(
 const { utils } = require('ethers');
 
 export async function transfer(toAddress, value, memo) {
-  let hexValue = utils.parseEther(value).toHexString();
+  if (!/^0x[0-9a-fA-F]{40}$/.test(toAddress)) {
+    throw new Error(`[uptick-sdk] Invalid toAddress: ${String(toAddress)}`);
+  }
+  let hexValue;
+  try {
+    hexValue = utils.parseEther(value).toHexString();
+  } catch (e) {
+    throw new Error(`[uptick-sdk] Invalid value: ${String(value)}`);
+  }
   const gasPrice = '0x2540be400';
   const gas = '0xF4240';
 
@@ -188,7 +213,16 @@ export async function transfer(toAddress, value, memo) {
     value: hexValue,
     data: memo,
   };
-  const txHash = await window.ethereum.request({
+  // Prefer the SDK provider; fall back to the injected window.ethereum so the
+  // call also works in plain-injected / mobile setups.
+  let ethereum = await getMaskmaskProvider();
+  if (!ethereum && typeof window !== 'undefined' && window.ethereum) {
+    ethereum = window.ethereum;
+  }
+  if (!ethereum) {
+    throw new Error('[uptick-sdk] No Ethereum provider available');
+  }
+  const txHash = await ethereum.request({
     method: 'eth_sendTransaction',
     params: [transactionParameters],
   });
